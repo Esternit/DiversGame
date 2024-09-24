@@ -8,6 +8,7 @@ public:
 	Game(std::string BGpath);
 	void processer();
 private:
-	sf::RectangleShape GameBackgorund;
+	sf::RectangleShape GameBackground;
+	sf::Texture backgroundTexture;  // Store the texture
 };
 #endif // !GAME_H

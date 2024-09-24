@@ -1,17 +1,24 @@
 #include "game.h"
 #include <SFML/Graphics.hpp>
 #include <string.h>
+#include <fstream>
 #include <iostream>
+#include <filesystem>
 
 using namespace sf;
 
 Game::Game(std::string BGpath) {
-    Texture BackgorundPanel;
-    BackgorundPanel.loadFromFile(BGpath);
-    RectangleShape GameBackgorund(Vector2f(1280, 720));
-    GameBackgorund.setTexture(&BackgorundPanel);
-    GameBackgorund.setPosition(Vector2f(0, 0));
-    std::cout << BGpath << std::endl;
+    //setting and loading background
+    if (!backgroundTexture.loadFromFile(BGpath)) {
+        std::cerr << "Failed to load background image!" << std::endl;
+        return;
+    }
+
+    GameBackground.setTexture(&backgroundTexture);
+
+
+    sf::Vector2u textureSize = backgroundTexture.getSize();
+    GameBackground.setSize(sf::Vector2f(textureSize.x, textureSize.y));
 }
 
 void Game::processer() {
@@ -27,7 +34,7 @@ void Game::processer() {
         }
 
         window.clear();
-        window.draw(GameBackgorund);
+        window.draw(GameBackground);
         window.display();
     }
 }
