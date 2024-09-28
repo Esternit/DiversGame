@@ -4,7 +4,7 @@
 
 int main(int argc, char const *argv[])
 {
-    Game game("Assets/Environment/bg.png", "Assets/Adventurer/Individual Sprites/adventurer-idle-03.png");
+    Game game("Assets/Environment/bg.png", "Assets/Adventurer/adventurer-Sheet.png");
     game.processer();
     return 0;
 }

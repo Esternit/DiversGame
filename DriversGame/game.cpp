@@ -6,10 +6,13 @@
 #include <filesystem>
 #include "player.h"
 #include <map>
+#include <cstdlib>
+#include <ctime>
+
 
 using namespace sf;
 
-Game::Game(std::string BGpath, std::string playerPath) : player(playerPath) {
+Game::Game(std::string BGpath, std::string playerPath) : player(playerPath, 100, 2) {
     //setting and loading background
     if (!backgroundTexture.loadFromFile(BGpath)) {
         std::cerr << "Failed to load background image!" << std::endl;
@@ -27,13 +30,17 @@ void Game::processer() {
 
     Vector2f velocity;
 
-    Clock frameClock;
+    Clock frameClock, animationMovementClock, animateAttackClock;
 
     std::map<std::string, int> keyStatuses = { {"A", 0}, {"D", 0}, {"W", 0}, {"S", 0} };
+    View playerView(FloatRect(0, 0, window.getSize().x, window.getSize().y));
+    bool speedIncrease = false, attack = false;
+    int attackFrame = -1;
 
     while (window.isOpen())
     {
         Event e;
+
         while (window.pollEvent(e))
         {
             if (e.type == Event::Closed)
@@ -42,20 +49,28 @@ void Game::processer() {
             {
                 if (e.key.code == sf::Keyboard::A) {
                     keyStatuses["A"] = 1;
-                    velocity.x = -100;
+                    velocity.x = -player.getSpeed();
                 }
                 else if (e.key.code == sf::Keyboard::D) {
 					keyStatuses["D"] = 1;
-                    velocity.x = 100;
+                    velocity.x = player.getSpeed();
                 }
 
                 else if (e.key.code == sf::Keyboard::W) {
                     keyStatuses["W"] = 1;
-                    velocity.y = -100;
+                    velocity.y = -player.getSpeed();
                 }
                 else if (e.key.code == sf::Keyboard::S) {
 					keyStatuses["S"] = 1;
-                    velocity.y = 100;
+                    velocity.y = player.getSpeed();
+                }
+                else if (e.key.code == sf::Keyboard::E) {
+					attack = true;
+                    srand(time(0));
+                    attackFrame = rand() % 3;
+                }
+                else if (e.key.code == sf::Keyboard::LShift) {
+					speedIncrease = true;
                 }
 
             }
@@ -67,7 +82,7 @@ void Game::processer() {
                          velocity.x = 0;
                     }
 					else {
-						velocity.x = 100;
+						velocity.x = player.getSpeed();
 					}
                 }
                 else if (e.key.code == sf::Keyboard::D) {
@@ -76,7 +91,7 @@ void Game::processer() {
 						velocity.x = 0;
 					}
                     else {
-						velocity.x = -100;
+						velocity.x = -player.getSpeed();
                     }
                 }
                 else if (e.key.code == sf::Keyboard::W) {
@@ -85,7 +100,7 @@ void Game::processer() {
                         velocity.y = 0;
                     }
                     else {
-						velocity.y = 100;
+						velocity.y = player.getSpeed();
                     }
                 }
                 else if (e.key.code == sf::Keyboard::S) {
@@ -94,15 +109,31 @@ void Game::processer() {
 						velocity.y = 0;
                     }
                     else {
-						velocity.y = -100;
+						velocity.y = -player.getSpeed();
                     }
                 }
+				else if (e.key.code == sf::Keyboard::LShift) {
+					speedIncrease = false;
+				}
             }
         }
 
         auto deltaTime = frameClock.restart();
 
-        player.move(velocity * deltaTime.asSeconds());
+        player.move(velocity * deltaTime.asSeconds(), speedIncrease);
+        if (animationMovementClock.getElapsedTime().asSeconds() > (velocity.x == 0 && velocity.y == 0 ? 0.25 : 0.1) && !attack) {
+            animationMovementClock.restart();
+            player.animateMovement(velocity);
+        }
+        if (attack && animateAttackClock.getElapsedTime().asSeconds() > 0.1) {
+            if (!player.animateAttack(velocity * deltaTime.asSeconds(), attackFrame)) {
+                attack = false;
+            }
+			animateAttackClock.restart();
+        }
+		playerView.setCenter(player.getSprite().getPosition());
+
+		window.setView(playerView);
 
         window.clear();
         window.draw(GameBackground);
