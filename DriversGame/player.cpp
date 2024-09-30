@@ -4,7 +4,7 @@
 
 using namespace sf;
 
-Player::Player(std::string Path,float Speed, float SpeedIncreaser) :speed(Speed), speedIncreaser(SpeedIncreaser) {
+Player::Player(std::string Path,float Speed, float SpeedIncreaser) :speed(Speed), speedIncreaser(SpeedIncreaser), animation(0,50,0,40) {
 	// Load player texture
 	if (!playerTexture.loadFromFile(Path)) {
 		std::cerr << "Failed to load player image!" << std::endl;

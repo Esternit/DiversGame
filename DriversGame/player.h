@@ -2,13 +2,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <SFML/Graphics.hpp>
+#include "FrameAnimation.h"
 
-struct FrameAnimation {
-	int FrameX = 0;
-	int StepX = 50;
-	int FrameY = 0;
-	int StepY = 40;
-};
+
 
 class Player {
 public:

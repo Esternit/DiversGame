@@ -8,6 +8,7 @@
 #include <map>
 #include <cstdlib>
 #include <ctime>
+#include "Minotaur.h"
 
 
 using namespace sf;
@@ -29,6 +30,8 @@ void Game::processer() {
     RenderWindow window(VideoMode(1280, 720), "Divers");
 
     Vector2f velocity;
+
+    Minotaur Minotaur("Assets/Enemy/Minotaur.png", 1280, 720);
 
     Clock frameClock, animationMovementClock, animateAttackClock;
 
@@ -121,6 +124,10 @@ void Game::processer() {
         auto deltaTime = frameClock.restart();
 
         player.move(velocity * deltaTime.asSeconds(), speedIncrease);
+
+        Vector2f diractionEnemy = normalize(player.getSprite().getPosition() - Minotaur.getSprite().getPosition());
+
+		Minotaur.move(diractionEnemy * 50.0f * deltaTime.asSeconds());
         if (animationMovementClock.getElapsedTime().asSeconds() > (velocity.x == 0 && velocity.y == 0 ? 0.25 : 0.1) && !attack) {
             animationMovementClock.restart();
             player.animateMovement(velocity);
@@ -137,7 +144,16 @@ void Game::processer() {
 
         window.clear();
         window.draw(GameBackground);
+        window.draw(Minotaur.getSprite());
         window.draw(player.getSprite());
         window.display();
     }
+}
+
+Vector2f Game::normalize(const sf::Vector2f& source) {
+    float length = std::sqrt(source.x * source.x + source.y * source.y);
+    if (length != 0)
+        return sf::Vector2f(source.x / length, source.y / length);
+    else
+        return source;
 }

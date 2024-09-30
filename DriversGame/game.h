@@ -8,6 +8,8 @@ class Game {
 public:
 	Game(std::string BGpath, std::string playerPath);
 	void processer();
+
+	sf::Vector2f normalize(const sf::Vector2f& source);
 private:
 	sf::RectangleShape GameBackground;
 	sf::Texture backgroundTexture; // Store the texture
