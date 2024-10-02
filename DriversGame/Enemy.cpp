@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-Enemy::Enemy(const std::string& Path, float posX, float posY, FrameAnimation anim, float width,  float height) : animation(anim), width(width), height(height) {
+Enemy::Enemy(const std::string& Path, float posX, float posY, FrameAnimation anim, float width,  float height) : animation(anim), width(width), height(height), attack(false) {
 	if (!enemyTexture.loadFromFile(Path)) {
 		std::cerr << "Failed to load enemy image!" << std::endl;
 	}

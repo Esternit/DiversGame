@@ -15,6 +15,8 @@ public:
 
     void animateMovement(sf::Vector2f direction);
 
+    void animateAttack(sf::Vector2f direction);
+
     //void update(float deltaTime) override;
     //void draw(RenderWindow& window) override;
 };

@@ -1,6 +1,10 @@
 #include "player.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <vector>
+
+const std::vector<int> animsXMove = { 65, 114, 164, 216, 264, 314 };
+const std::vector<int> animsXStay = { 13, 64, 114, 161};
 
 using namespace sf;
 
@@ -31,26 +35,26 @@ void Player::move(Vector2f direction, bool speedIncrease) {
 }
 
 void Player::animateMovement(Vector2f direction) {
+	bool check = direction.x == 0 && direction.y == 0;
+	std::vector <int> animsX = check ? animsXStay : animsXMove;
 	if (direction.x == 0 && direction.y == 0) {
-		animation.FrameX += animation.StepX;
 		animation.FrameY = 0;
-		if (animation.FrameX < animation.StepX || animation.FrameX >180) {
-			animation.FrameX = animation.StepX;
-		}
 	}
 	else {
-		animation.FrameY = animation.StepY;
-		animation.FrameX += animation.StepX;
-		if (animation.FrameX < animation.StepX || animation.FrameX > 340) {
-			animation.FrameX = animation.StepX;
-		}
+
+		animation.FrameY = animation.StepY * 1;
+
+	}
+	animation.FrameX += 1;
+	if (animation.FrameX >= animsX.size()) {
+		animation.FrameX = 0;
 	}
 	if (direction.x < 0) {
-		player.setTextureRect(IntRect(animation.FrameX + animation.StepX, animation.FrameY, -40, 35));
+		player.setTextureRect(IntRect(animsX[animation.FrameX] + 25, animation.FrameY, -25, 35));
 	}
 
 	else {
-		player.setTextureRect(IntRect(animation.FrameX, animation.FrameY, 40, 35));
+		player.setTextureRect(IntRect(animsX[animation.FrameX], animation.FrameY, 25, 35));
 	}
 
 }

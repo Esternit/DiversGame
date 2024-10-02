@@ -18,11 +18,20 @@ public:
     void move(sf::Vector2f direction);
 
     void animateMovement(sf::Vector2f direction);
+
+    bool getAttack() {
+        return attack;
+    };
+
+	void setAttack(bool attack) {
+		this->attack = attack;
+	};
 protected:
     Sprite enemy;
     Texture enemyTexture;
     FrameAnimation animation;
     float width;
+    bool attack;
 	float height;
 };
 

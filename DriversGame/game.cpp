@@ -33,7 +33,7 @@ void Game::processer() {
 
     Minotaur Minotaur("Assets/Enemy/Minotaur.png", 1280, 720);
 
-    Clock frameClock, animationMovementClock, animateAttackClock, animateMovementEnemyClock;
+    Clock frameClock, animationMovementClock, animateAttackClock, animateMovementEnemyClock, animateAttackEnemyClock;
 
     std::map<std::string, int> keyStatuses = { {"A", 0}, {"D", 0}, {"W", 0}, {"S", 0} };
     View playerView(FloatRect(0, 0, window.getSize().x, window.getSize().y));
@@ -127,12 +127,16 @@ void Game::processer() {
 
         Vector2f diractionEnemy = normalize(player.getSprite().getPosition() - Minotaur.getSprite().getPosition());
 
-		Minotaur.move(diractionEnemy * 50.0f * deltaTime.asSeconds());
+        if (!Minotaur.getAttack()) {
+            Minotaur.move(diractionEnemy * 50.0f * deltaTime.asSeconds());
+        }
+		
         if (animationMovementClock.getElapsedTime().asSeconds() > (velocity.x == 0 && velocity.y == 0 ? 0.25 : 0.1) && !attack) {
             animationMovementClock.restart();
             player.animateMovement(velocity);
         }
-        if (animateMovementEnemyClock.getElapsedTime().asSeconds() > 0.15) {
+        if (animateMovementEnemyClock.getElapsedTime().asSeconds() > 0.15 && !Minotaur.getAttack()) {
+            
 			animateMovementEnemyClock.restart();
             Minotaur.animateMovement(diractionEnemy);
         }
@@ -140,6 +144,19 @@ void Game::processer() {
             if (!player.animateAttack(velocity * deltaTime.asSeconds(), attackFrame)) {
                 attack = false;
             }
+			animateAttackClock.restart();
+        }
+        FloatRect minotaurBounds = Minotaur.getSprite().getGlobalBounds();
+
+        minotaurBounds.width -= diractionEnemy.x < 0 ? 20 : 50; 
+        minotaurBounds.height -= 20; 
+
+        if (minotaurBounds.intersects(player.getSprite().getGlobalBounds()) && !Minotaur.getAttack()) {
+            Minotaur.setAttack(true);
+        }
+
+        if (Minotaur.getAttack() && animateAttackClock.getElapsedTime().asSeconds() > 0.1) {
+            Minotaur.animateAttack(diractionEnemy);
 			animateAttackClock.restart();
         }
 		playerView.setCenter(player.getSprite().getPosition());
