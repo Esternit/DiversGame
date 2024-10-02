@@ -13,7 +13,7 @@ class Minotaur : public Enemy {
 public:
     Minotaur(const std::string& Path, float posX, float posY);
 
-    Sprite getSprite() { return enemy; }
+    void animateMovement(sf::Vector2f direction);
 
     //void update(float deltaTime) override;
     //void draw(RenderWindow& window) override;

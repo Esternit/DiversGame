@@ -16,10 +16,14 @@ public:
     Sprite getSprite();
 
     void move(sf::Vector2f direction);
+
+    void animateMovement(sf::Vector2f direction);
 protected:
     Sprite enemy;
     Texture enemyTexture;
     FrameAnimation animation;
+    float width;
+	float height;
 };
 
 #endif

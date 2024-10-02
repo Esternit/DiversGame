@@ -33,7 +33,7 @@ void Game::processer() {
 
     Minotaur Minotaur("Assets/Enemy/Minotaur.png", 1280, 720);
 
-    Clock frameClock, animationMovementClock, animateAttackClock;
+    Clock frameClock, animationMovementClock, animateAttackClock, animateMovementEnemyClock;
 
     std::map<std::string, int> keyStatuses = { {"A", 0}, {"D", 0}, {"W", 0}, {"S", 0} };
     View playerView(FloatRect(0, 0, window.getSize().x, window.getSize().y));
@@ -131,6 +131,10 @@ void Game::processer() {
         if (animationMovementClock.getElapsedTime().asSeconds() > (velocity.x == 0 && velocity.y == 0 ? 0.25 : 0.1) && !attack) {
             animationMovementClock.restart();
             player.animateMovement(velocity);
+        }
+        if (animateMovementEnemyClock.getElapsedTime().asSeconds() > 0.15) {
+			animateMovementEnemyClock.restart();
+            Minotaur.animateMovement(diractionEnemy);
         }
         if (attack && animateAttackClock.getElapsedTime().asSeconds() > 0.1) {
             if (!player.animateAttack(velocity * deltaTime.asSeconds(), attackFrame)) {

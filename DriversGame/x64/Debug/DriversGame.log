@@ -1,40 +1,27 @@
-﻿  game.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\filesystem(12): warning STL4038: The contents of <filesystem> are available only with C++17 or later.
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,67): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,67): warning C4244:         with
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,67): warning C4244:         [
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,67): warning C4244:             T=unsigned int
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,67): warning C4244:         ]
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,67): warning C4244:         and
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,67): warning C4244:         [
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,67): warning C4244:             T=float
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,67): warning C4244:         ]
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,52): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,52): warning C4244:         with
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,52): warning C4244:         [
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,52): warning C4244:             T=unsigned int
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,52): warning C4244:         ]
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,52): warning C4244:         and
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,52): warning C4244:         [
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,52): warning C4244:             T=float
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(26,52): warning C4244:         ]
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,73): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,73): warning C4244:         with
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,73): warning C4244:         [
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,73): warning C4244:             T=unsigned int
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,73): warning C4244:         ]
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,73): warning C4244:         and
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,73): warning C4244:         [
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,73): warning C4244:             T=float
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,73): warning C4244:         ]
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,53): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,53): warning C4244:         with
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,53): warning C4244:         [
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,53): warning C4244:             T=unsigned int
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,53): warning C4244:         ]
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,53): warning C4244:         and
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,53): warning C4244:         [
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,53): warning C4244:             T=float
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(39,53): warning C4244:         ]
-C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(72,31): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  Minotaur.cpp
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,92): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,92): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,92): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,92): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,92): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,84): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,84): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,84): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,84): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,84): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,57): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,57): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,57): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,57): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(29,57): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(33,83): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(33,83): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(33,83): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(33,83): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(33,83): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(33,76): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(33,76): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(33,76): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(33,76): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Minotaur.cpp(33,76): warning C4244:         ]
   DriversGame.vcxproj -> C:\Dima\C++\MST\S3\DiversGame\x64\Debug\DriversGame.exe
