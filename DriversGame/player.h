@@ -3,13 +3,13 @@
 #define PLAYER_H
 #include <SFML/Graphics.hpp>
 #include "FrameAnimation.h"
+#include "TextureHolder.h"
 
 
 
 class Player {
 public:
-	Player(std::string Path, float Speed, float SpeedIncreaser);
-	Player &operator=(const Player &other);
+	Player(const sf::Texture& textures, float Speed, float SpeedIncreaser);
 	void move(sf::Vector2f direction, bool speedIncrease);
 	void animateMovement(sf::Vector2f direction);
 	bool animateAttack(sf::Vector2f direction, int attackFrame);
@@ -22,7 +22,6 @@ public:
 	float getSpeedIncreaser() { return speedIncreaser; }
 private:
 	sf::Sprite player;
-	sf::Texture playerTexture;  // Store the texture
 	FrameAnimation animation;
 	float speed;
 	float speedIncreaser;

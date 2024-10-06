@@ -13,16 +13,12 @@
 
 using namespace sf;
 
-Game::Game(std::string BGpath, std::string playerPath) : player(playerPath, 100, 2) {
+Game::Game(std::string BGpath, std::string playerPath) :  player(TextureHolder::GetTexture(playerPath), 100, 2) {
     //setting and loading background
-    if (!backgroundTexture.loadFromFile(BGpath)) {
-        std::cerr << "Failed to load background image!" << std::endl;
-        return;
-    }
 
-    GameBackground.setTexture(&backgroundTexture);
+    GameBackground.setTexture(&TextureHolder::GetTexture(BGpath));
 
-    sf::Vector2u textureSize = backgroundTexture.getSize();
+    sf::Vector2u textureSize = TextureHolder::GetTexture(BGpath).getSize();
     GameBackground.setSize(sf::Vector2f(textureSize.x, textureSize.y));
 }
 

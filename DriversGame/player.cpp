@@ -8,25 +8,13 @@ const std::vector<int> animsXStay = { 13, 64, 114, 161};
 
 using namespace sf;
 
-Player::Player(std::string Path,float Speed, float SpeedIncreaser) :speed(Speed), speedIncreaser(SpeedIncreaser), animation(0,50,0,40) {
-	// Load player texture
-	if (!playerTexture.loadFromFile(Path)) {
-		std::cerr << "Failed to load player image!" << std::endl;
-	}
+Player::Player(const Texture &textures,float Speed, float SpeedIncreaser) :speed(Speed), speedIncreaser(SpeedIncreaser), animation(0,50,0,40) {
+	std::cout << "Player created" << std::endl;
 
-	player.setTexture(playerTexture);
+	player.setTexture(textures);
 	player.setTextureRect(IntRect(animation.FrameX, animation.FrameY, 40, 40));
 	player.scale(2, 2);
 	player.setPosition(Vector2f(1280, 720));
-}
-
-Player& Player::operator=(const Player& other) {
-	if (this != &other) {
-		playerTexture = other.playerTexture;
-		player.setTexture(playerTexture);
-		player.setPosition(other.player.getPosition());
-	}
-	return *this;
 }
 
 void Player::move(Vector2f direction, bool speedIncrease) {
