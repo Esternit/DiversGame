@@ -2,12 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-Enemy::Enemy(const std::string& Path, float posX, float posY, FrameAnimation anim, float width,  float height) : animation(anim), width(width), height(height), attack(false) {
-	if (!enemyTexture.loadFromFile(Path)) {
-		std::cerr << "Failed to load enemy image!" << std::endl;
-	}
+Enemy::Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation anim, float width,  float height) : animation(anim), width(width), height(height), attack(false) {
 
-	enemy.setTexture(enemyTexture);
+	enemy.setTexture(textures);
 	enemy.setTextureRect(IntRect(animation.FrameX, animation.FrameY, width, height));
 	enemy.scale(2, 2);
 	enemy.setPosition(posX, posY);

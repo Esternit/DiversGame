@@ -8,18 +8,26 @@ const std::vector<int> animsXStay = { 13, 64, 114, 161};
 
 using namespace sf;
 
-Player::Player(const Texture &textures,float Speed, float SpeedIncreaser) :speed(Speed), speedIncreaser(SpeedIncreaser), animation(0,50,0,40) {
-	std::cout << "Player created" << std::endl;
+Player::Player(const Texture &textures,float Speed, float SpeedIncreaser, const Texture& texturesGun) :speed(Speed), speedIncreaser(SpeedIncreaser), animation(0,50,0,40) {
 
 	player.setTexture(textures);
 	player.setTextureRect(IntRect(animation.FrameX, animation.FrameY, 40, 40));
 	player.scale(2, 2);
 	player.setPosition(Vector2f(1280, 720));
+
+	gun = Gun(texturesGun, player.getPosition().x + 10, player.getPosition().y + 38, 30, 15, 10, FrameAnimation(0, 0, 50, 0));
 }
 
 void Player::move(Vector2f direction, bool speedIncrease) {
-
+	
 	player.move(direction * (speedIncrease ? speedIncreaser : 1));
+	std::cout << this->getGun().getGun().getScale().y << std::endl;
+	if (gun.getGun().getScale().y < 0) {
+		gun.setPosition(player.getPosition().x + 17.5, player.getPosition().y + 38);
+	}
+	else {
+		gun.setPosition(player.getPosition().x + 10, player.getPosition().y + 38);
+	}
 }
 
 void Player::animateMovement(Vector2f direction) {
@@ -115,4 +123,8 @@ bool Player::animateAttackSword2(Vector2f direction, int posX, int posY, int pos
 
 Sprite Player::getSprite() {
 	return player;
+}
+
+void Player::setGunRotation(Vector2f enemyPos) {
+	gun.setRotation(enemyPos);
 }

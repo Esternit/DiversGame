@@ -11,7 +11,7 @@ using namespace sf;
 
 class Minotaur : public Enemy {
 public:
-    Minotaur(const std::string& Path, float posX, float posY);
+    Minotaur(const sf::Texture& textures, float posX, float posY);
 
     void animateMovement(sf::Vector2f direction);
 

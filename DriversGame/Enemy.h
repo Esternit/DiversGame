@@ -11,7 +11,7 @@ using namespace sf;
 class Enemy {
 public:
 
-    Enemy(const std::string& Path, float posX, float posY, FrameAnimation animation, float width, float height);
+    Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation animation, float width, float height);
 
     Sprite getSprite();
 

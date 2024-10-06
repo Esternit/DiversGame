@@ -13,7 +13,7 @@
 
 using namespace sf;
 
-Game::Game(std::string BGpath, std::string playerPath) :  player(TextureHolder::GetTexture(playerPath), 100, 2) {
+Game::Game(std::string BGpath, std::string playerPath) :  player(TextureHolder::GetTexture(playerPath), 100, 2, TextureHolder::GetTexture("Assets/Guns/tier-1.png")) {
     //setting and loading background
 
     GameBackground.setTexture(&TextureHolder::GetTexture(BGpath));
@@ -27,7 +27,7 @@ void Game::processer() {
 
     Vector2f velocity;
 
-    Minotaur Minotaur("Assets/Enemy/Minotaur.png", 1280, 720);
+    Minotaur Minotaur(TextureHolder::GetTexture("Assets/Enemy/Minotaur.png"), 1280, 720);
 
     Clock frameClock, animationMovementClock, animateAttackClock, animateMovementEnemyClock, animateAttackEnemyClock;
 
@@ -157,12 +157,15 @@ void Game::processer() {
         }
 		playerView.setCenter(player.getSprite().getPosition());
 
+        player.setGunRotation(Minotaur.getSprite().getPosition());
+
 		window.setView(playerView);
 
         window.clear();
         window.draw(GameBackground);
         window.draw(Minotaur.getSprite());
         window.draw(player.getSprite());
+        window.draw(player.getGun().getGun());
         window.display();
     }
 }
