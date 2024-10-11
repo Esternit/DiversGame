@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-Enemy::Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation anim, float width,  float height) : animation(anim), width(width), height(height), attack(false) {
+Enemy::Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation anim, float width,  float height, float health) : animation(anim), width(width), height(height), attack(false), health(health) {
 
 	enemy.setTexture(textures);
 	enemy.setTextureRect(IntRect(animation.FrameX, animation.FrameY, width, height));

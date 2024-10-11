@@ -7,8 +7,10 @@
 #include "player.h"
 #include <map>
 #include <cstdlib>
+#include <vector>
 #include <ctime>
 #include "Minotaur.h"
+#include "Bullet.h"
 
 
 using namespace sf;
@@ -29,12 +31,13 @@ void Game::processer() {
 
     Minotaur Minotaur(TextureHolder::GetTexture("Assets/Enemy/Minotaur.png"), 1280, 720);
 
-    Clock frameClock, animationMovementClock, animateAttackClock, animateMovementEnemyClock, animateAttackEnemyClock;
+    Clock frameClock, animationMovementClock, animateAttackClock, animateMovementEnemyClock, animateAttackEnemyClock, shootClock;
 
     std::map<std::string, int> keyStatuses = { {"A", 0}, {"D", 0}, {"W", 0}, {"S", 0} };
     View playerView(FloatRect(0, 0, window.getSize().x, window.getSize().y));
     bool speedIncrease = false, attack = false;
     int attackFrame = -1;
+    std::vector<Bullet> bullets;
 
     while (window.isOpen())
     {
@@ -121,6 +124,10 @@ void Game::processer() {
 
         player.move(velocity * deltaTime.asSeconds(), speedIncrease);
 
+        for (auto& bullet : bullets) {
+            bullet.move(deltaTime.asSeconds());
+        }
+
         Vector2f diractionEnemy = normalize(player.getSprite().getPosition() - Minotaur.getSprite().getPosition());
 
         if (!Minotaur.getAttack()) {
@@ -155,6 +162,18 @@ void Game::processer() {
             Minotaur.animateAttack(diractionEnemy);
 			animateAttackClock.restart();
         }
+
+        if (shootClock.getElapsedTime().asSeconds() > player.getGun().getFireRate()) {
+			shootClock.restart();
+            Vector2f diractionEnemyBullet = normalize(Minotaur.getSprite().getPosition() - player.getSprite().getPosition());
+            bullets.push_back(Bullet(TextureHolder::GetTexture("Assets/Guns/Bullets.png"), player.getGun().getGun().getPosition().x, player.getGun().getGun().getPosition().y, 8, 10, player.getGun().getAttackGamage(), FrameAnimation(180, 0, 130, 0), diractionEnemyBullet));
+        }
+
+bullets.erase(std::remove_if(bullets.begin(), bullets.end(),
+    [this, &Minotaur](const Bullet& bullet) {  // Захватываем this и Minotaur по ссылке
+        return this->checkCollision(bullet.getSprite(), Minotaur.getSprite());  // Используем checkCollision
+    }), bullets.end());
+
 		playerView.setCenter(player.getSprite().getPosition());
 
         player.setGunRotation(Minotaur.getSprite().getPosition());
@@ -166,6 +185,9 @@ void Game::processer() {
         window.draw(Minotaur.getSprite());
         window.draw(player.getSprite());
         window.draw(player.getGun().getGun());
+        for (auto& bullet : bullets) {
+			window.draw(bullet.getSprite());
+        }
         window.display();
     }
 }
@@ -176,4 +198,8 @@ Vector2f Game::normalize(const sf::Vector2f& source) {
         return sf::Vector2f(source.x / length, source.y / length);
     else
         return source;
+}
+
+bool Game::checkCollision(const sf::Sprite& rect1, const sf::Sprite& rect2) {
+    return rect1.getGlobalBounds().intersects(rect2.getGlobalBounds());
 }

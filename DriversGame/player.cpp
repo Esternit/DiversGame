@@ -15,13 +15,12 @@ Player::Player(const Texture &textures,float Speed, float SpeedIncreaser, const 
 	player.scale(2, 2);
 	player.setPosition(Vector2f(1280, 720));
 
-	gun = Gun(texturesGun, player.getPosition().x + 10, player.getPosition().y + 38, 30, 15, 10, FrameAnimation(0, 0, 50, 0));
+	gun = Gun(texturesGun, player.getPosition().x + 10, player.getPosition().y + 38, 30, 15, 10, FrameAnimation(0, 0, 50, 0), 0.5f);
 }
 
 void Player::move(Vector2f direction, bool speedIncrease) {
 	
 	player.move(direction * (speedIncrease ? speedIncreaser : 1));
-	std::cout << this->getGun().getGun().getScale().y << std::endl;
 	if (gun.getGun().getScale().y < 0) {
 		gun.setPosition(player.getPosition().x + 17.5, player.getPosition().y + 38);
 	}
