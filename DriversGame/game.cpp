@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <vector>
 #include <ctime>
+#include <limits>
 #include "Minotaur.h"
 #include "Bullet.h"
 
@@ -29,7 +30,7 @@ void Game::processer() {
 
     Vector2f velocity;
 
-    Minotaur Minotaur(TextureHolder::GetTexture("Assets/Enemy/Minotaur.png"), 1280, 720);
+    //Minotaur Minotaur(TextureHolder::GetTexture("Assets/Enemy/Minotaur.png"), 1280, 720);
 
     Clock frameClock, animationMovementClock, animateAttackClock, animateMovementEnemyClock, animateAttackEnemyClock, shootClock;
 
@@ -38,7 +39,8 @@ void Game::processer() {
     bool speedIncrease = false, attack = false;
     int attackFrame = -1;
     std::vector<Bullet> bullets;
-
+    
+    spawnEnemies(3);
     while (window.isOpen())
     {
         Event e;
@@ -128,61 +130,103 @@ void Game::processer() {
             bullet.move(deltaTime.asSeconds());
         }
 
-        Vector2f diractionEnemy = normalize(player.getSprite().getPosition() - Minotaur.getSprite().getPosition());
+        Enemy* closestEnemy = findClosestEnemy(player.getSprite());
 
-        if (!Minotaur.getAttack()) {
-            Minotaur.move(diractionEnemy * 50.0f * deltaTime.asSeconds());
+        
+
+        for (auto& enemy : enemies) {
+            Vector2f diractionEnemy = normalize(player.getSprite().getPosition() - enemy.getSprite().getPosition());
+            if (!enemy.getAttack()) {
+                enemy.move(diractionEnemy * 50.0f * deltaTime.asSeconds());
+            }
+
+            if (enemy.getAnimateMovementClock().getElapsedTime().asSeconds() > 0.15 && !enemy.getAttack()) {
+
+                enemy.resetAnimateMovementClock();
+                enemy.animateMovement(diractionEnemy);
+            }
+
+            FloatRect enemyBounds = enemy.getSprite().getGlobalBounds();
+
+            enemyBounds.width -= diractionEnemy.x < 0 ? 20 : 50;
+            enemyBounds.height -= 20;
+
+            if (enemyBounds.intersects(player.getSprite().getGlobalBounds()) && !enemy.getAttack()) {
+                enemy.setAttack(true);
+            }
+
+            if (enemy.getAttack() && enemy.getAnimateAttackClock().getElapsedTime().asSeconds() > 0.1) {
+                enemy.animateAttack(diractionEnemy);
+                enemy.resetAnimateAttackClock();
+            }
         }
+
+        //if (!Minotaur.getAttack()) {
+        //    Minotaur.move(diractionEnemy * 50.0f * deltaTime.asSeconds());
+        //}
 		
         if (animationMovementClock.getElapsedTime().asSeconds() > (velocity.x == 0 && velocity.y == 0 ? 0.25 : 0.1) && !attack) {
             animationMovementClock.restart();
             player.animateMovement(velocity);
         }
-        if (animateMovementEnemyClock.getElapsedTime().asSeconds() > 0.15 && !Minotaur.getAttack()) {
-            
-			animateMovementEnemyClock.restart();
-            Minotaur.animateMovement(diractionEnemy);
-        }
+   //     if (animateMovementEnemyClock.getElapsedTime().asSeconds() > 0.15 && !Minotaur.getAttack()) {
+   //         
+			//animateMovementEnemyClock.restart();
+   //         Minotaur.animateMovement(diractionEnemy);
+   //     }
         if (attack && animateAttackClock.getElapsedTime().asSeconds() > 0.1) {
             if (!player.animateAttack(velocity * deltaTime.asSeconds(), attackFrame)) {
                 attack = false;
             }
 			animateAttackClock.restart();
         }
-        FloatRect minotaurBounds = Minotaur.getSprite().getGlobalBounds();
+   //     FloatRect minotaurBounds = Minotaur.getSprite().getGlobalBounds();
 
-        minotaurBounds.width -= diractionEnemy.x < 0 ? 20 : 50; 
-        minotaurBounds.height -= 20; 
+   //     minotaurBounds.width -= diractionEnemy.x < 0 ? 20 : 50; 
+   //     minotaurBounds.height -= 20; 
 
-        if (minotaurBounds.intersects(player.getSprite().getGlobalBounds()) && !Minotaur.getAttack()) {
-            Minotaur.setAttack(true);
-        }
+   //     if (minotaurBounds.intersects(player.getSprite().getGlobalBounds()) && !Minotaur.getAttack()) {
+   //         Minotaur.setAttack(true);
+   //     }
 
-        if (Minotaur.getAttack() && animateAttackClock.getElapsedTime().asSeconds() > 0.1) {
-            Minotaur.animateAttack(diractionEnemy);
-			animateAttackClock.restart();
-        }
+   //     if (Minotaur.getAttack() && animateAttackClock.getElapsedTime().asSeconds() > 0.1) {
+   //         Minotaur.animateAttack(diractionEnemy);
+			//animateAttackClock.restart();
+   //     }
 
         if (shootClock.getElapsedTime().asSeconds() > player.getGun().getFireRate()) {
 			shootClock.restart();
-            Vector2f diractionEnemyBullet = normalize(Minotaur.getSprite().getPosition() - player.getSprite().getPosition());
+            Vector2f diractionEnemyBullet = normalize(closestEnemy->getSprite().getPosition() - player.getSprite().getPosition());
             bullets.push_back(Bullet(TextureHolder::GetTexture("Assets/Guns/Bullets.png"), player.getGun().getGun().getPosition().x, player.getGun().getGun().getPosition().y, 8, 10, player.getGun().getAttackGamage(), FrameAnimation(180, 0, 130, 0), diractionEnemyBullet));
         }
 
-bullets.erase(std::remove_if(bullets.begin(), bullets.end(),
-    [this, &Minotaur](const Bullet& bullet) {  // Захватываем this и Minotaur по ссылке
-        return this->checkCollision(bullet.getSprite(), Minotaur.getSprite());  // Используем checkCollision
-    }), bullets.end());
+        bullets.erase(std::remove_if(bullets.begin(), bullets.end(),
+            [this, &closestEnemy](const Bullet& bullet) {
+                if (checkCollision(bullet.getSprite(), closestEnemy->getSprite())) {
+                    closestEnemy->updateHealth(bullet.getAttackGamage());
+                    std::cout << closestEnemy->getHealth() << std::endl;
+                    return true;
+                }
+                return false;
+            }), bullets.end());
+        enemies.erase(std::remove_if(enemies.begin(), enemies.end(),
+			[this](Enemy& enemy) {
+				return enemy.getHealth() <= 0;
+			}), enemies.end());
+
 
 		playerView.setCenter(player.getSprite().getPosition());
 
-        player.setGunRotation(Minotaur.getSprite().getPosition());
+        player.setGunRotation(closestEnemy->getSprite().getPosition());
 
 		window.setView(playerView);
 
         window.clear();
         window.draw(GameBackground);
-        window.draw(Minotaur.getSprite());
+        for(auto& enemy : enemies) {
+			window.draw(enemy.getSprite());
+		}
+        //window.draw(Minotaur.getSprite());
         window.draw(player.getSprite());
         window.draw(player.getGun().getGun());
         for (auto& bullet : bullets) {
@@ -202,4 +246,30 @@ Vector2f Game::normalize(const sf::Vector2f& source) {
 
 bool Game::checkCollision(const sf::Sprite& rect1, const sf::Sprite& rect2) {
     return rect1.getGlobalBounds().intersects(rect2.getGlobalBounds());
+}
+
+void Game::spawnEnemies(int amount) {
+    int posX, posY;
+    for (int i = 0; i < amount; i++) {
+        posX = rand() % 2401;
+        posY = rand() % 1441;
+        enemies.push_back(Minotaur(TextureHolder::GetTexture("Assets/Enemy/Minotaur.png"), posX, posY));
+    }
+}
+
+Enemy* Game::findClosestEnemy(sf::Sprite sprite) {
+    Enemy* closestEnemy = nullptr;
+    Vector2f diractionEnemy;
+    float closestDistance = std::numeric_limits<float>::max();
+    for (auto& enemy : enemies) {
+        Vector2f direction = sprite.getPosition() - enemy.getSprite().getPosition();
+        float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+
+        if (distance < closestDistance) {
+			closestDistance = distance;
+			closestEnemy = &enemy;
+        }
+    }
+
+	return closestEnemy;
 }

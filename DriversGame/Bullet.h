@@ -20,6 +20,10 @@ public:
 	};
 
 	void move(float seconds);
+
+	float getAttackGamage() const {
+		return attackGamage;
+	}
 private:
 	sf::Sprite bullet;
 	float attackGamage;
