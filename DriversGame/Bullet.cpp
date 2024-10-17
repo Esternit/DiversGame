@@ -26,5 +26,5 @@ void Bullet::animateMovement() {
 }
 
 void Bullet::move(float seconds) {
-	bullet.move(seconds * direction * 500.0f);
+	bullet.setPosition(bullet.getPosition() + seconds * direction * 500.0f);
 }

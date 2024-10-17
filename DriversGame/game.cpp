@@ -194,21 +194,25 @@ void Game::processer() {
 			//animateAttackClock.restart();
    //     }
 
-        if (shootClock.getElapsedTime().asSeconds() > player.getGun().getFireRate()) {
-			shootClock.restart();
-            Vector2f diractionEnemyBullet = normalize(closestEnemy->getSprite().getPosition() - player.getSprite().getPosition());
-            bullets.push_back(Bullet(TextureHolder::GetTexture("Assets/Guns/Bullets.png"), player.getGun().getGun().getPosition().x, player.getGun().getGun().getPosition().y, 8, 10, player.getGun().getAttackGamage(), FrameAnimation(180, 0, 130, 0), diractionEnemyBullet));
+        if (closestEnemy != nullptr) {
+            if (shootClock.getElapsedTime().asSeconds() > player.getGun().getFireRate()) {
+                shootClock.restart();
+                Vector2f diractionEnemyBullet = normalize(closestEnemy->getSprite().getPosition() - player.getSprite().getPosition());
+                bullets.push_back(Bullet(TextureHolder::GetTexture("Assets/Guns/Bullets.png"), player.getGun().getGun().getPosition().x, player.getGun().getGun().getPosition().y, 8, 10, player.getGun().getAttackGamage(), FrameAnimation(180, 0, 130, 0), diractionEnemyBullet));
+            }
+
+            bullets.erase(std::remove_if(bullets.begin(), bullets.end(),
+                [this, &closestEnemy](const Bullet& bullet) {
+                    if (checkCollision(bullet.getSprite(), closestEnemy->getSprite())) {
+                        closestEnemy->updateHealth(bullet.getAttackGamage());
+                        return true;
+                    }
+                    return false;
+                }), bullets.end());
+            player.setGunRotation(closestEnemy->getSprite().getPosition());
         }
 
-        bullets.erase(std::remove_if(bullets.begin(), bullets.end(),
-            [this, &closestEnemy](const Bullet& bullet) {
-                if (checkCollision(bullet.getSprite(), closestEnemy->getSprite())) {
-                    closestEnemy->updateHealth(bullet.getAttackGamage());
-                    std::cout << closestEnemy->getHealth() << std::endl;
-                    return true;
-                }
-                return false;
-            }), bullets.end());
+
         enemies.erase(std::remove_if(enemies.begin(), enemies.end(),
 			[this](Enemy& enemy) {
 				return enemy.getHealth() <= 0;
@@ -217,15 +221,17 @@ void Game::processer() {
 
 		playerView.setCenter(player.getSprite().getPosition());
 
-        player.setGunRotation(closestEnemy->getSprite().getPosition());
+
 
 		window.setView(playerView);
 
         window.clear();
         window.draw(GameBackground);
-        for(auto& enemy : enemies) {
-			window.draw(enemy.getSprite());
-		}
+        for (auto& enemy : enemies) {
+            window.draw(enemy.getSprite());
+        }
+        
+
         //window.draw(Minotaur.getSprite());
         window.draw(player.getSprite());
         window.draw(player.getGun().getGun());
