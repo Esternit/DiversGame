@@ -25,10 +25,15 @@ public:
 	Gun getGun() { return gun; }	
 	float getSpeed() { return speed; }
 	float getSpeedIncreaser() { return speedIncreaser; }
+
+	void updateExperience(float experience) { this->experience += experience; }
+
+	float getExperience() { return experience; }
 private:
 	sf::Sprite player;
 	FrameAnimation animation;
 	float speed;
+	float experience;
 	float speedIncreaser;
 	Gun gun;
 };

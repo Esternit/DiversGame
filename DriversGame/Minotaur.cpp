@@ -7,7 +7,7 @@ const std::vector<int> animsXMove = { 24, 120, 212, 310, 404 };
 const std::vector<int> animsXStay = { 25, 120, 219, 315, 410 };
 const std::vector<int> animsXAttack = { 4, 126, 220, 314, 410, 505, 602, 700, 794 };
 
-Minotaur::Minotaur(const sf::Texture& textures, float posX, float posY) : Enemy(textures, posX, posY, FrameAnimation(0, 90, 0, 100), 60,60, 100) {
+Minotaur::Minotaur(const sf::Texture& textures, float posX, float posY) : Enemy(textures, posX, posY, FrameAnimation(0, 90, 0, 100), 60,60, 100, 10) {
 
 }
 

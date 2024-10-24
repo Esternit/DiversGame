@@ -12,6 +12,7 @@
 #include <limits>
 #include "Minotaur.h"
 #include "Bullet.h"
+#include "Experience.h"
 
 
 using namespace sf;
@@ -39,6 +40,7 @@ void Game::processer() {
     bool speedIncrease = false, attack = false;
     int attackFrame = -1;
     std::vector<Bullet> bullets;
+    std::vector<Experience> experience;
     
     spawnEnemies(3);
     while (window.isOpen())
@@ -161,38 +163,18 @@ void Game::processer() {
             }
         }
 
-        //if (!Minotaur.getAttack()) {
-        //    Minotaur.move(diractionEnemy * 50.0f * deltaTime.asSeconds());
-        //}
 		
         if (animationMovementClock.getElapsedTime().asSeconds() > (velocity.x == 0 && velocity.y == 0 ? 0.25 : 0.1) && !attack) {
             animationMovementClock.restart();
             player.animateMovement(velocity);
         }
-   //     if (animateMovementEnemyClock.getElapsedTime().asSeconds() > 0.15 && !Minotaur.getAttack()) {
-   //         
-			//animateMovementEnemyClock.restart();
-   //         Minotaur.animateMovement(diractionEnemy);
-   //     }
+
         if (attack && animateAttackClock.getElapsedTime().asSeconds() > 0.1) {
             if (!player.animateAttack(velocity * deltaTime.asSeconds(), attackFrame)) {
                 attack = false;
             }
 			animateAttackClock.restart();
         }
-   //     FloatRect minotaurBounds = Minotaur.getSprite().getGlobalBounds();
-
-   //     minotaurBounds.width -= diractionEnemy.x < 0 ? 20 : 50; 
-   //     minotaurBounds.height -= 20; 
-
-   //     if (minotaurBounds.intersects(player.getSprite().getGlobalBounds()) && !Minotaur.getAttack()) {
-   //         Minotaur.setAttack(true);
-   //     }
-
-   //     if (Minotaur.getAttack() && animateAttackClock.getElapsedTime().asSeconds() > 0.1) {
-   //         Minotaur.animateAttack(diractionEnemy);
-			//animateAttackClock.restart();
-   //     }
 
         if (closestEnemy != nullptr) {
             if (shootClock.getElapsedTime().asSeconds() > player.getGun().getFireRate()) {
@@ -214,9 +196,23 @@ void Game::processer() {
 
 
         enemies.erase(std::remove_if(enemies.begin(), enemies.end(),
-			[this](Enemy& enemy) {
-				return enemy.getHealth() <= 0;
+			[this, &experience](Enemy& enemy) {
+                if (enemy.getHealth() <= 0) {
+                    experience.push_back(Experience(TextureHolder::GetTexture("Assets/Effects/Exp.png"), enemy.getGivesXp(), enemy.getSprite().getPosition().x, enemy.getSprite().getPosition().y, 7, 7, FrameAnimation(324, 0, 85, 0)));
+                    return true;
+                }
+				return false;
 			}), enemies.end());
+
+
+		experience.erase(std::remove_if(experience.begin(), experience.end(),
+            [this](Experience& experience) {
+                if (checkCollision(experience.getSprite(), player.getSprite())) {
+                    player.updateExperience(experience.getXpGiven());
+                    return true;
+                }
+				return false;
+            }), experience.end());
 
 
 		playerView.setCenter(player.getSprite().getPosition());
@@ -230,9 +226,10 @@ void Game::processer() {
         for (auto& enemy : enemies) {
             window.draw(enemy.getSprite());
         }
+        for (auto& experience : experience) {
+            window.draw(experience.getSprite());
+        }
         
-
-        //window.draw(Minotaur.getSprite());
         window.draw(player.getSprite());
         window.draw(player.getGun().getGun());
         for (auto& bullet : bullets) {
