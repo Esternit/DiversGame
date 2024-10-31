@@ -8,7 +8,7 @@
 
 class Gun{
 public:
-	Gun(const sf::Texture& textures, float posX, float posY, float width, float height, float attackGamage, FrameAnimation anim, float fireRate);
+	Gun(const sf::Texture& textures, float posX, float posY, float width, float height, float attackGamage, FrameAnimation anim, float fireRate, float range);
 	Gun() = default;
 
 	sf::Sprite getGun() { return gun; }
@@ -20,10 +20,15 @@ public:
 	float getFireRate() { return fireRate; }
 
 	float getAttackGamage() { return attackGamage; }
+
+	float getRange() { return range; }
+
+	void setRange(float range) { this->range = range; }
 private:
 	sf::Sprite gun;
 	float attackGamage;
 	float fireRate;
+	float range;
 };
 
 #endif // !

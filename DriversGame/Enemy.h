@@ -11,7 +11,7 @@ using namespace sf;
 class Enemy {
 public:
 
-    Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation animation, float width, float height, float health, float givesXp);
+    Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation animation, float width, float height, float health, float givesXp, float damage);
 
     Sprite getSprite();
 
@@ -61,6 +61,18 @@ public:
     float getGivesXp() {
 		return givesXp;
 	}
+
+    float getDamage() {
+		return damage;
+	}
+
+    void setDamage(float damage) {
+		this->damage = damage;
+	}
+
+	int getAmountXp() {
+		return amountXp;
+	}
 protected:
     Sprite enemy;
     Texture enemyTexture;
@@ -70,6 +82,8 @@ protected:
 	float height;
     float health;
     float givesXp;
+	int amountXp;
+    float damage;
     Clock animateMovementClock, animateAttackClock;
 };
 

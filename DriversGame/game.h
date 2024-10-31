@@ -7,6 +7,8 @@
 #include <string>
 #include "TextureHolder.h"
 #include "Minotaur.h"
+#include "Experience.h"
+#include <vector>
 
 class Game {
 public:
@@ -18,7 +20,9 @@ public:
 	bool checkCollision(const sf::Sprite& rect1, const sf::Sprite& rect2);
 	void spawnEnemies(int amount);
 
-	Enemy* findClosestEnemy(sf::Sprite sprite);
+	Enemy* findClosestEnemy(sf::Sprite sprite, float range);
+
+	void spawnExperience(std::vector<Experience>& experience, Enemy enemy);
 private:
 	sf::RectangleShape GameBackground;
 	Player player;

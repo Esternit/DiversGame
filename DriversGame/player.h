@@ -11,7 +11,7 @@
 class Player {
 public:
 	Player(const sf::Texture& textures, float Speed, float SpeedIncreaser, const sf::Texture& texturesGun);
-	void move(sf::Vector2f direction, bool speedIncrease);
+	void move(sf::Vector2f direction, bool speedIncrease, float mapWidth, float mapHeight);
 	void animateMovement(sf::Vector2f direction);
 	bool animateAttack(sf::Vector2f direction, int attackFrame);
 
@@ -29,12 +29,19 @@ public:
 	void updateExperience(float experience) { this->experience += experience; }
 
 	float getExperience() { return experience; }
+
+	float getHealth() { return health; }
+	float getMaxHealth() { return maxHealth; }
+
+	void setHealth(float health) { this->health = health; }
+	void setMaxHealth(float maxHealth) { this->maxHealth = maxHealth; }
 private:
 	sf::Sprite player;
 	FrameAnimation animation;
 	float speed;
 	float experience;
 	float speedIncreaser;
+	float health, maxHealth;
 	Gun gun;
 };
 

@@ -5,12 +5,14 @@
 const std::vector<int> animsXMove = { 24, 120, 212, 310, 404 };
 const std::vector<int> animsXStay = { 25, 120, 219, 315, 410 };
 const std::vector<int> animsXAttack = { 4, 126, 220, 314, 410, 505, 602, 700, 794 };
-Enemy::Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation anim, float width,  float height, float health, float givesXp) : animation(anim), width(width), height(height), attack(false), health(health), givesXp(givesXp) {
+Enemy::Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation anim, float width,  float height, float health, float givesXp, float damage) : animation(anim), width(width), height(height), attack(false), health(health), givesXp(givesXp), damage(damage) {
 
 	enemy.setTexture(textures);
 	enemy.setTextureRect(IntRect(animation.FrameX, animation.FrameY, width, height));
 	enemy.scale(2, 2);
 	enemy.setPosition(posX, posY);
+
+	amountXp = rand() % 5 + 1;
 
 }
 

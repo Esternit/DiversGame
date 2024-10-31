@@ -6,7 +6,7 @@
 
 using namespace sf;
 
-Gun::Gun(const Texture& textures, float posX, float posY, float width, float height, float attackGamage, FrameAnimation anim, float fireRate) : attackGamage(attackGamage), fireRate(fireRate) {
+Gun::Gun(const Texture& textures, float posX, float posY, float width, float height, float attackGamage, FrameAnimation anim, float fireRate,float range) : attackGamage(attackGamage), fireRate(fireRate), range(range) {
 	gun.setTexture(textures);
 	gun.setTextureRect(IntRect(anim.FrameX, anim.FrameY, width, height));
 	gun.setPosition(posX, posY);

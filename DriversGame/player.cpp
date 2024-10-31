@@ -8,19 +8,33 @@ const std::vector<int> animsXStay = { 13, 64, 114, 161};
 
 using namespace sf;
 
-Player::Player(const Texture &textures,float Speed, float SpeedIncreaser, const Texture& texturesGun) :speed(Speed), speedIncreaser(SpeedIncreaser), animation(0,50,0,40), experience(0) {
+Player::Player(const Texture &textures,float Speed, float SpeedIncreaser, const Texture& texturesGun) :speed(Speed), speedIncreaser(SpeedIncreaser), animation(0,50,0,40), experience(0), health(100), maxHealth(100) {
 
 	player.setTexture(textures);
 	player.setTextureRect(IntRect(animation.FrameX, animation.FrameY, 40, 40));
 	player.scale(2, 2);
 	player.setPosition(Vector2f(1280, 720));
 
-	gun = Gun(texturesGun, player.getPosition().x + 10, player.getPosition().y + 38, 30, 15, 10, FrameAnimation(0, 0, 50, 0), 0.5f);
+	gun = Gun(texturesGun, player.getPosition().x + 10, player.getPosition().y + 38, 30, 15, 10, FrameAnimation(0, 0, 50, 0), 0.5f, 500);
 }
 
-void Player::move(Vector2f direction, bool speedIncrease) {
+void Player::move(Vector2f direction, bool speedIncrease, float mapWidth, float mapHeight) {
 	
 	player.move(direction * (speedIncrease ? speedIncreaser : 1));
+
+	if (player.getPosition().x < 0) {
+		player.setPosition(0, player.getPosition().y);
+	}
+	if (player.getPosition().x > mapWidth - 40) {
+		player.setPosition(mapWidth - 40, player.getPosition().y);
+	}
+	if (player.getPosition().y < 0) {
+		player.setPosition(player.getPosition().x, 0);
+	}
+	if (player.getPosition().y > mapHeight - 40) {
+		player.setPosition(player.getPosition().x, mapHeight - 40);
+	}
+
 	if (gun.getGun().getScale().y < 0) {
 		gun.setPosition(player.getPosition().x + 17.5, player.getPosition().y + 38);
 	}
