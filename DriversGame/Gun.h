@@ -24,6 +24,8 @@ public:
 	float getRange() { return range; }
 
 	void setRange(float range) { this->range = range; }
+
+	void setFireRate(float fireRate) { this->fireRate = fireRate; }
 private:
 	sf::Sprite gun;
 	float attackGamage;

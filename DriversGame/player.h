@@ -30,8 +30,16 @@ public:
 
 	float getExperience() { return experience; }
 
+	void setExperience(float experience) { this->experience = experience; }
+
 	float getHealth() { return health; }
 	float getMaxHealth() { return maxHealth; }
+
+	float getLevel() { return level; }
+
+	void setLevel(float level) { this->level = level; }
+
+	void setSpeed(float speed) { this->speed = speed; }
 
 	void setHealth(float health) { this->health = health; }
 	void setMaxHealth(float maxHealth) { this->maxHealth = maxHealth; }
@@ -39,7 +47,7 @@ private:
 	sf::Sprite player;
 	FrameAnimation animation;
 	float speed;
-	float experience;
+	float experience, level;
 	float speedIncreaser;
 	float health, maxHealth;
 	Gun gun;

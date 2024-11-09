@@ -8,7 +8,7 @@ const std::vector<int> animsXStay = { 13, 64, 114, 161};
 
 using namespace sf;
 
-Player::Player(const Texture &textures,float Speed, float SpeedIncreaser, const Texture& texturesGun) :speed(Speed), speedIncreaser(SpeedIncreaser), animation(0,50,0,40), experience(0), health(100), maxHealth(100) {
+Player::Player(const Texture &textures,float Speed, float SpeedIncreaser, const Texture& texturesGun) :speed(Speed), speedIncreaser(SpeedIncreaser), animation(0,50,0,40), experience(0), health(100), maxHealth(100), level(1) {
 
 	player.setTexture(textures);
 	player.setTextureRect(IntRect(animation.FrameX, animation.FrameY, 40, 40));

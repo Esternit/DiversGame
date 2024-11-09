@@ -9,6 +9,7 @@
 #include "Minotaur.h"
 #include "Experience.h"
 #include <vector>
+#include "IniFile.h"
 
 class Game {
 public:
@@ -23,6 +24,9 @@ public:
 	Enemy* findClosestEnemy(sf::Sprite sprite, float range);
 
 	void spawnExperience(std::vector<Experience>& experience, Enemy enemy);
+	void calculateBuffs(IniFile ini, std::vector<std::pair<std::string, float>>& availableBuffs);
+
+	void giveBuff(Player& player, std::pair<std::string, float> buff);
 private:
 	sf::RectangleShape GameBackground;
 	Player player;

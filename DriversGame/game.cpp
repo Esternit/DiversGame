@@ -31,6 +31,36 @@ void Game::processer() {
 
     Vector2f velocity;
 
+    IniFile ini("Assets/config.ini");
+
+    Font font;
+    if (!font.loadFromFile("Assets/open-sans/OpenSans-Bold.ttf")) {
+         std::cerr << "Error loading font." << std::endl;
+    }
+
+    sf::RectangleShape frame1(sf::Vector2f(200, 300));
+    sf::RectangleShape frame2(sf::Vector2f(200, 300));
+    sf::RectangleShape frame3(sf::Vector2f(200, 300));
+
+    frame1.setFillColor(sf::Color(0, 0, 255, 128));
+    frame2.setFillColor(sf::Color(0, 0, 255, 128));
+    frame3.setFillColor(sf::Color(0, 0, 255, 128));
+
+    sf::Text text1("Power-Up 1", font, 20);
+    sf::Text text2("Power-Up 2", font, 20);
+    sf::Text text3("Power-Up 3", font, 20);
+
+    // Устанавливаем цвет текста
+    text1.setFillColor(sf::Color::White);
+    text2.setFillColor(sf::Color::White);
+    text3.setFillColor(sf::Color::White);
+
+    text1.setCharacterSize(14);
+
+
+
+    bool powerUpSelected = true;
+
     //Minotaur Minotaur(TextureHolder::GetTexture("Assets/Enemy/Minotaur.png"), 1280, 720);
 
     Clock frameClock, animationMovementClock, animateAttackClock, animateMovementEnemyClock, animateAttackEnemyClock, shootClock;
@@ -41,6 +71,7 @@ void Game::processer() {
     int attackFrame = -1;
     std::vector<Bullet> bullets;
     std::vector<Experience> experience;
+    std::vector<std::pair<std::string, float>> availableBuffs;
 
     const float mapWidth = 2400.0f;
     const float mapHeight = 2400.0f;
@@ -54,6 +85,14 @@ void Game::processer() {
     RectangleShape healthBar(sf::Vector2f(200, 20));
     healthBar.setPosition(50, 50);
     healthBar.setFillColor(sf::Color(100, 250, 50));
+
+    RectangleShape experienceBarBg(sf::Vector2f(200, 20));
+    experienceBarBg.setPosition(50, 50);
+    experienceBarBg.setFillColor(sf::Color(50, 50, 50));
+
+    RectangleShape experienceBar(sf::Vector2f(200, 20));
+    experienceBar.setPosition(50, 150);
+    experienceBar.setFillColor(sf::Color(50, 150, 250));
     
     spawnEnemies(3);
     while (window.isOpen())
@@ -64,6 +103,26 @@ void Game::processer() {
         {
             if (e.type == Event::Closed)
                 window.close();
+            else if (e.type == sf::Event::MouseButtonPressed && !powerUpSelected) {
+                sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
+                sf::Vector2f mousePos = window.mapPixelToCoords(pixelPos, playerView);
+
+                if (frame1.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                    powerUpSelected = true;
+                    giveBuff(player, availableBuffs[0]);
+                    availableBuffs.clear();
+                }
+                else if (frame2.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                    powerUpSelected = true;
+                    giveBuff(player, availableBuffs[1]);
+                    availableBuffs.clear();
+                }
+                else if (frame3.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                    powerUpSelected = true;
+                    giveBuff(player, availableBuffs[2]);
+                    availableBuffs.clear();
+                }
+            }
             else if (e.type == sf::Event::KeyPressed)
             {
                 if (e.key.code == sf::Keyboard::A) {
@@ -263,10 +322,65 @@ void Game::processer() {
         healthBarBg.setPosition(barX, barY);
         healthBar.setPosition(barX, barY);
 
+        if (player.getExperience() >= player.getLevel() * 10) {
+            player.setLevel(player.getLevel() + 1);
+            player.setExperience(0);
+            powerUpSelected = false;
+        }
+
+        experienceBarBg.setPosition(barX, barY + 30);
+		experienceBar.setPosition(barX, barY + 30);
+
+        if (!powerUpSelected) {
+            if (availableBuffs.size() == 0) {
+                calculateBuffs(ini, availableBuffs);
+
+                text1.setString(availableBuffs[0].first);
+                text2.setString(availableBuffs[1].first);
+                text3.setString(availableBuffs[2].first);
+            }
+
+            frame1.setPosition(barX + 300, barY + 200);
+            frame2.setPosition(barX + 550, barY + 200);
+            frame3.setPosition(barX + 800, barY + 200);
+
+
+
+
+            text1.setPosition(
+                frame1.getPosition().x + (frame1.getSize().x - text1.getGlobalBounds().width) / 2,
+                frame1.getPosition().y + (frame1.getSize().y - text1.getGlobalBounds().height) / 2
+            );
+
+            text2.setPosition(
+                frame2.getPosition().x + (frame2.getSize().x - text2.getGlobalBounds().width) / 2,
+                frame2.getPosition().y + (frame2.getSize().y - text2.getGlobalBounds().height) / 2
+            );
+
+            text3.setPosition(
+                frame3.getPosition().x + (frame3.getSize().x - text3.getGlobalBounds().width) / 2,
+                frame3.getPosition().y + (frame3.getSize().y - text3.getGlobalBounds().height) / 2
+            );
+
+
+            window.draw(frame1);
+            window.draw(text1);
+
+            window.draw(frame2);
+            window.draw(text2);
+
+            window.draw(frame3);
+            window.draw(text3);
+        }
+
         float healthPercent = player.getHealth() / player.getMaxHealth();
+        float experiencePercent = player.getExperience() / (player.getLevel() * 10);
         healthBar.setSize(Vector2f(200 * healthPercent, 20));
+		experienceBar.setSize(Vector2f(200 * experiencePercent, 20));
         window.draw(healthBarBg);
         window.draw(healthBar);
+		window.draw(experienceBarBg);
+		window.draw(experienceBar);
         window.display();
     }
 }
@@ -314,4 +428,35 @@ void Game::spawnExperience(std::vector<Experience>& experience, Enemy enemy){
     for (int i = 0; i < enemy.getAmountXp(); i++){
         experience.push_back(Experience(TextureHolder::GetTexture("Assets/Effects/Exp.png"), enemy.getGivesXp() / enemy.getAmountXp(), enemy.getSprite().getPosition().x + rand() % 100, enemy.getSprite().getPosition().y + rand() % 100, 7, 7, FrameAnimation(324, 0, 85, 0)));
     }
+}
+
+void Game::calculateBuffs(IniFile ini, std::vector<std::pair<std::string, float>>& availableBuffs) {
+    std::vector<std::string> sectionNames = ini.getSectionsNames();
+    int sectionAmount = ini.getSectionsCount();
+    std::vector<int> indexes;
+    for (int i = 0; i < 3; i++) {
+        int index = rand() % sectionAmount;
+        while (std::find(indexes.begin(), indexes.end(), index) != indexes.end()) {
+            index = rand() % sectionAmount;
+        }
+
+        std::string name = ini.readString(sectionNames[index], "name");
+        std::replace(name.begin(), name.end(), '_', ' ');
+        availableBuffs.push_back(std::make_pair(name, ini.readInt(sectionNames[index], "value")));
+        indexes.push_back(index);
+    }
+}
+
+void Game::giveBuff(Player& player, std::pair<std::string, float> buff) {
+
+    if (buff.first == "increase fire rate") {
+        player.getGun().setFireRate(player.getGun().getFireRate() * buff.second);
+    }
+    else if (buff.first == "increase max health") {
+        player.setMaxHealth(player.getMaxHealth() * buff.second);
+    }
+    else if (buff.first == "increase movement speed") {
+        player.setSpeed(player.getSpeed() * buff.second);
+    }
+
 }
