@@ -6,7 +6,7 @@
 #include <map>
 #include <string>
 #include "TextureHolder.h"
-#include "Minotaur.h"
+#include "Enemy.h"
 #include "Experience.h"
 #include <vector>
 #include "IniFile.h"

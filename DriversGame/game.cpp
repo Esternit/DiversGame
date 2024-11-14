@@ -10,7 +10,6 @@
 
 #include <ctime>
 #include <limits>
-#include "Minotaur.h"
 #include "Bullet.h"
 
 
@@ -94,7 +93,7 @@ void Game::processer() {
     experienceBar.setPosition(50, 150);
     experienceBar.setFillColor(sf::Color(50, 150, 250));
     
-    spawnEnemies(3);
+    spawnEnemies(100);
     while (window.isOpen())
     {
         Event e;
@@ -257,10 +256,12 @@ void Game::processer() {
             }
 
             bullets.erase(std::remove_if(bullets.begin(), bullets.end(),
-                [this, &closestEnemy](const Bullet& bullet) {
-                    if (checkCollision(bullet.getSprite(), closestEnemy->getSprite())) {
-                        closestEnemy->updateHealth(bullet.getAttackGamage());
-                        return true;
+                [this](const Bullet& bullet) {
+                    for (int i = 0; i < enemies.size(); i++) {
+                        if (checkCollision(bullet.getSprite(), enemies[i].getSprite())) {
+                            enemies[i].updateHealth(bullet.getAttackGamage());
+                            return true;
+                        }
                     }
                     return false;
                 }), bullets.end());
@@ -403,7 +404,8 @@ void Game::spawnEnemies(int amount) {
     for (int i = 0; i < amount; i++) {
         posX = rand() % 2401;
         posY = rand() % 1441;
-        enemies.push_back(Minotaur(TextureHolder::GetTexture("Assets/Enemy/Minotaur.png"), posX, posY));
+        enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/firebug.png"), posX, posY, FrameAnimation(0, 90, 0, 100), 65, 40, 20, 3, 2, "Firebug"));
+        //enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/Minotaur.png"), posX, posY, FrameAnimation(0, 90, 0, 100), 60, 60, 100, 10, 20, "Minotaur"));
     }
 }
 

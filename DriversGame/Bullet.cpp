@@ -2,7 +2,7 @@
 #include <vector>
 #include <iostream>
 
-const std::vector<int> animsXMove = { 180, 194, 211, 226 };
+const std::vector<int> animsXMoveMinotaur = { 180, 194, 211, 226 };
 
 using namespace sf;
 
@@ -15,7 +15,7 @@ Bullet::Bullet(const Texture& textures, float posX, float posY, float width, flo
 
 
 void Bullet::animateMovement() {
-	std::vector <int> animsX =  animsXMove;
+	std::vector <int> animsX =  animsXMoveMinotaur;
 	animation.FrameY = 110;
 	animation.FrameX += 1;
 	if (animation.FrameX >= animsX.size()) {

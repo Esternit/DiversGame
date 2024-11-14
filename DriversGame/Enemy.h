@@ -11,7 +11,7 @@ using namespace sf;
 class Enemy {
 public:
 
-    Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation animation, float width, float height, float health, float givesXp, float damage);
+    Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation animation, float width, float height, float health, float givesXp, float damage, std::string name);
 
     Sprite getSprite();
 
@@ -84,6 +84,7 @@ protected:
     float givesXp;
 	int amountXp;
     float damage;
+	std::string name;
     Clock animateMovementClock, animateAttackClock;
 };
 

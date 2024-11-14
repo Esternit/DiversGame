@@ -141,7 +141,6 @@
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="IniFile.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Minotaur.cpp" />
     <ClCompile Include="player.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,7 +151,6 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="IniFile.h" />
-    <ClInclude Include="Minotaur.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="TextureHolder.h" />
   </ItemGroup>

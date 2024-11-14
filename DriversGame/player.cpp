@@ -3,8 +3,8 @@
 #include <iostream>
 #include <vector>
 
-const std::vector<int> animsXMove = { 65, 114, 164, 216, 264, 314 };
-const std::vector<int> animsXStay = { 13, 64, 114, 161};
+const std::vector<int> animsXMoveMinotaur = { 65, 114, 164, 216, 264, 314 };
+const std::vector<int> animsXStayMinotaur = { 13, 64, 114, 161};
 
 using namespace sf;
 
@@ -45,7 +45,7 @@ void Player::move(Vector2f direction, bool speedIncrease, float mapWidth, float 
 
 void Player::animateMovement(Vector2f direction) {
 	bool check = direction.x == 0 && direction.y == 0;
-	std::vector <int> animsX = check ? animsXStay : animsXMove;
+	std::vector <int> animsX = check ? animsXStayMinotaur : animsXMoveMinotaur;
 	if (direction.x == 0 && direction.y == 0) {
 		animation.FrameY = 0;
 	}
