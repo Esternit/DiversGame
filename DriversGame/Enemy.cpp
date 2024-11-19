@@ -27,7 +27,35 @@ Sprite Enemy::getSprite() {
 	return enemy;
 }
 
-void Enemy::move(Vector2f direction) {
+void Enemy::move(Vector2f direction, std::vector<Enemy>& enemies) {
+	Vector2f avoidanceForce(0.f, 0.f); 
+
+	for (auto& enemyOne : enemies) {
+		if (&enemyOne == this) {
+			continue;
+		}
+
+		if (enemyOne.getSprite().getGlobalBounds().intersects(this->enemy.getGlobalBounds())) {
+			Vector2f delta = this->enemy.getPosition() - enemyOne.getSprite().getPosition();
+			float distance = std::sqrt(delta.x * delta.x + delta.y * delta.y);
+
+			if (distance > 0.01f) {
+				delta /= distance;
+
+				float force = std::min(50.f / distance, 5.f);
+				avoidanceForce += delta * force;
+			}
+		}
+	}
+
+	direction += avoidanceForce;
+
+	float maxSpeed = 200.f;
+	if (std::sqrt(direction.x * direction.x + direction.y * direction.y) > maxSpeed) {
+		direction /= std::sqrt(direction.x * direction.x + direction.y * direction.y) / maxSpeed;
+	}
+
+	// Двигаем врага
 	enemy.move(direction);
 }
 

@@ -1,6 +1,4 @@
 #pragma once
-#ifndef PLAYER_H
-#define PLAYER_H
 #include <SFML/Graphics.hpp>
 #include "FrameAnimation.h"
 #include "TextureHolder.h"
@@ -41,6 +39,10 @@ public:
 
 	void setSpeed(float speed) { this->speed = speed; }
 
+	void moveAlone(float offsetX, float offsetY) {
+		player.move(offsetX, offsetY);
+	}
+
 	void setHealth(float health) { this->health = health; }
 	void setMaxHealth(float maxHealth) { this->maxHealth = maxHealth; }
 private:
@@ -52,5 +54,3 @@ private:
 	float health, maxHealth;
 	Gun gun;
 };
-
-#endif

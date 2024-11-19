@@ -1,6 +1,4 @@
 #pragma once
-#ifndef GUN_H
-#define GUN_H
 
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -32,6 +30,4 @@ private:
 	float fireRate;
 	float range;
 };
-
-#endif // !
 

@@ -1,6 +1,4 @@
 #pragma once
-#ifndef EXPERIENCE_H
-#define EXPERIENCE_H
 
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -15,5 +13,3 @@ public:
 	sf::Sprite getSprite() { return xp; }
 	float getXpGiven() { return xpGiven; }
 };
-
-#endif // !

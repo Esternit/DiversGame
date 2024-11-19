@@ -10,6 +10,7 @@
 #include "Experience.h"
 #include <vector>
 #include "IniFile.h"
+#include "Rock.h"
 
 class Game {
 public:
@@ -27,6 +28,12 @@ public:
 	void calculateBuffs(IniFile ini, std::vector<std::pair<std::string, float>>& availableBuffs);
 
 	void giveBuff(Player& player, std::pair<std::string, float> buff);
+
+	void spawnRocks(std::vector<Rock>& rocks, int numRocks);
+
+	void handlePlayerCollisions(Player& player, const std::vector<Rock>& rocks);
+
+	std::string chooseRock();
 private:
 	sf::RectangleShape GameBackground;
 	Player player;

@@ -1,6 +1,4 @@
 #pragma once
-#ifndef FRAMEANIMATION_H
-#define FRAMEANIMATION_H
 
 struct FrameAnimation {
 	int FrameX;
@@ -11,5 +9,3 @@ struct FrameAnimation {
 	FrameAnimation(int FrameX, int StepX, int FrameY, int StepY) : FrameX(FrameX), StepX(StepX), FrameY(FrameY), StepY(StepY) {}
 };
 
-
-#endif

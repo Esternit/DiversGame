@@ -1,0 +1,21 @@
+#include "Rock.h"
+
+using namespace sf;
+
+Rock::Rock(const Texture& textures, float posX, float posY) {
+	rock.setTexture(textures);
+	rock.setPosition(posX, posY);
+	rock.setScale(2.f, 2.f);
+}
+
+void Rock::updateTexture(const Texture& textures) {
+	rock.setTexture(textures);
+}
+
+void Rock::setPosition(float posX, float posY) {
+	rock.setPosition(posX, posY);
+}
+
+Sprite Rock::getSprite() {
+	return rock;
+}

@@ -1,6 +1,4 @@
 ﻿#pragma once
-#ifndef ENEMY_H
-#define ENEMY_H
 
 #include <SFML/Graphics.hpp>
 #include "FrameAnimation.h"
@@ -15,7 +13,7 @@ public:
 
     Sprite getSprite();
 
-    void move(sf::Vector2f direction);
+    void move(sf::Vector2f direction, std::vector<Enemy>& enemies);
 
     void animateMovement(sf::Vector2f direction);
 
@@ -87,5 +85,3 @@ protected:
 	std::string name;
     Clock animateMovementClock, animateAttackClock;
 };
-
-#endif
