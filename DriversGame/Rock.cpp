@@ -1,8 +1,9 @@
 #include "Rock.h"
+#include <iostream>
 
 using namespace sf;
 
-Rock::Rock(const Texture& textures, float posX, float posY, std::string name) : name(name) {
+Rock::Rock(const Texture& textures, float posX, float posY, std::string name, int health, int givesGold, int givesRed) : name(name), health(health), givesGold(givesGold), givesRed(givesRed){
 	rock.setTexture(textures);
 	rock.setPosition(posX, posY);
 	//rock.setScale(1.f, 1.f);
@@ -10,7 +11,17 @@ Rock::Rock(const Texture& textures, float posX, float posY, std::string name) : 
 
 void Rock::updateTexture() {
 	imagePos += 1;
+
 	rock.setTexture(TextureHolder::GetTexture("Assets/Mining/64x64/" + name + std::to_string(imagePos) + ".png"));
+}
+
+bool Rock::takeDamage(int damage) {
+	health -= damage;
+
+	if ((health < 100.0f && imagePos == 1) || (health < 50.0f && imagePos == 2)) {
+		updateTexture();
+	}
+	return health <= 0;
 }
 
 void Rock::setPosition(float posX, float posY) {

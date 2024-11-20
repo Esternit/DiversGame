@@ -45,6 +45,30 @@ public:
 
 	void setHealth(float health) { this->health = health; }
 	void setMaxHealth(float maxHealth) { this->maxHealth = maxHealth; }
+
+	int getMeleeAttack() {
+		return meleeAttack;
+	}
+
+	void setMeleeAttack(int meleeAttack) {
+		this->meleeAttack = meleeAttack;
+	}
+
+	void setGold(int gold) {
+		this->gold = gold;
+	}
+
+	int getGold() {
+		return gold;
+	}
+
+	void setRed(int red) {
+		this->red = red;
+	}
+
+	int getRed() {
+		return red;
+	}
 private:
 	sf::Sprite player;
 	FrameAnimation animation;
@@ -52,5 +76,8 @@ private:
 	float experience, level;
 	float speedIncreaser;
 	float health, maxHealth;
+	int meleeAttack = 20;
+	int gold = 0;
+	int red = 0;
 	Gun gun;
 };

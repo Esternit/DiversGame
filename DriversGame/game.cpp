@@ -35,7 +35,8 @@ void Game::processer() {
 
     Vector2f velocity;
 
-    IniFile ini("Assets/config.ini");
+    IniFile iniBuffs("Assets/config.ini");
+    IniFile iniRocks("Assets/rocks.ini");
 
     Font font;
     if (!font.loadFromFile("Assets/open-sans/OpenSans-Bold.ttf")) {
@@ -54,7 +55,6 @@ void Game::processer() {
     sf::Text text2("Power-Up 2", font, 20);
     sf::Text text3("Power-Up 3", font, 20);
 
-    // Устанавливаем цвет текста
     text1.setFillColor(sf::Color::White);
     text2.setFillColor(sf::Color::White);
     text3.setFillColor(sf::Color::White);
@@ -100,7 +100,7 @@ void Game::processer() {
 
     std::vector<Rock> rocks;
     
-    spawnRocks(rocks, 10);
+    spawnRocks(rocks, 10, iniRocks);
     spawnEnemies(100);
     while (window.isOpen())
     {
@@ -151,7 +151,6 @@ void Game::processer() {
                 }
                 else if (e.key.code == sf::Keyboard::E) {
 					attack = true;
-                    srand(time(0));
                     attackFrame = rand() % 3;
                 }
                 else if (e.key.code == sf::Keyboard::LShift) {
@@ -207,7 +206,7 @@ void Game::processer() {
 
         player.move(velocity * deltaTime.asSeconds(), speedIncrease, mapWidth, mapHeight);
 
-        handlePlayerCollisions(player, rocks);
+        
 
         for (auto& bullet : bullets) {
             bullet.move(deltaTime.asSeconds());
@@ -253,10 +252,29 @@ void Game::processer() {
 
         if (attack && animateAttackClock.getElapsedTime().asSeconds() > 0.1) {
             if (!player.animateAttack(velocity * deltaTime.asSeconds(), attackFrame)) {
+                for (int i = 0; i < rocks.size(); i++) {
+                    if (checkCollision(player.getSprite(), rocks[i].getSprite())) {
+                        rocks[i].takeDamage(player.getMeleeAttack());
+                    }
+                }
                 attack = false;
             }
+
+
 			animateAttackClock.restart();
         }
+
+        handlePlayerCollisions(player, rocks);
+
+        rocks.erase(std::remove_if(rocks.begin(), rocks.end(),
+            [this](Rock& rock) {
+                if (rock.getHealth() <= 0) {
+                    player.setGold(player.getGold() + rock.getGivesGold());
+                    player.setRed(player.getRed() + rock.getGivesRed());
+                    return true;
+                }
+                return false;
+            }), rocks.end());
 
         if (closestEnemy != nullptr) {
             if (shootClock.getElapsedTime().asSeconds() > player.getGun().getFireRate()) {
@@ -348,7 +366,7 @@ void Game::processer() {
 
         if (!powerUpSelected) {
             if (availableBuffs.size() == 0) {
-                calculateBuffs(ini, availableBuffs);
+                calculateBuffs(iniBuffs, availableBuffs);
 
                 text1.setString(availableBuffs[0].first);
                 text2.setString(availableBuffs[1].first);
@@ -446,7 +464,7 @@ void Game::spawnExperience(std::vector<Experience>& experience, Enemy enemy){
     }
 }
 
-void Game::calculateBuffs(IniFile ini, std::vector<std::pair<std::string, float>>& availableBuffs) {
+void Game::calculateBuffs(IniFile& ini, std::vector<std::pair<std::string, float>>& availableBuffs) {
     std::vector<std::string> sectionNames = ini.getSectionsNames();
     int sectionAmount = ini.getSectionsCount();
     std::vector<int> indexes;
@@ -477,15 +495,14 @@ void Game::giveBuff(Player& player, std::pair<std::string, float> buff) {
 
 }
 
-void Game::spawnRocks(std::vector<Rock>& rocks, int numRocks) {
-    std::srand(static_cast<unsigned>(std::time(nullptr))); // Случайный генератор
+void Game::spawnRocks(std::vector<Rock>& rocks, int numRocks, IniFile& ini) {
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
 
     for (int i = 0; i < numRocks; ++i) {
-        string name = chooseRock();
+        Rock rock = chooseRock(ini);
 
-        Rock rock(TextureHolder::GetTexture("Assets/Mining/64x64/" + name + "1.png"), 1, 1, name);
+        //Rock rock(TextureHolder::GetTexture("Assets/Mining/64x64/" + name + "1.png"), 1, 1, name);
 
-        // Случайное положение, но с учётом размеров игрового пространства
         float rockWidth = rock.getSprite().getGlobalBounds().width;
         float rockHeight = rock.getSprite().getGlobalBounds().height;
 
@@ -494,7 +511,6 @@ void Game::spawnRocks(std::vector<Rock>& rocks, int numRocks) {
 
         rock.setPosition(x, y);
 
-        // Проверка на пересечение с уже существующими камнями
         bool valid = true;
         for (const auto& otherRock : rocks) {
             if (checkCollision(rock.getSprite(), otherRock.getSprite())) {
@@ -503,46 +519,40 @@ void Game::spawnRocks(std::vector<Rock>& rocks, int numRocks) {
             }
         }
 
-        // Если позиция допустима, добавляем камень
         if (valid) {
             rocks.push_back(rock);
         }
         else {
-            --i; // Попробуем заспавнить этот камень ещё раз
+            --i;
         }
     }
 }
 
-std::string Game::chooseRock() {
-    // Генератор случайных чисел
+Rock Game::chooseRock(IniFile& ini) {
     static std::random_device rd;
     static std::mt19937 gen(rd());
     std::uniform_real_distribution<> dis(0.0, 1.0);
 
-    // Случайное число от 0 до 1
     float randomValue = dis(gen);
 
-    // Нахождение имени на основе вероятностей
     float cumulativeProbability = 0.0f;
     for (size_t i = 0; i < rockNames.size(); ++i) {
         cumulativeProbability += probabilities[i];
         if (randomValue <= cumulativeProbability) {
-            return rockNames[i];
+            return Rock(TextureHolder::GetTexture("Assets/Mining/64x64/" + rockNames[i] + "1.png"), 1, 1, rockNames[i], ini.readInt(rockNames[i], "health"), ini.readInt(rockNames[i], "givesGold"), ini.readInt(rockNames[i], "givesRed"));
         }
     }
 
-    return rockNames.back(); // На случай ошибок вернём последний элемент
+    return Rock(TextureHolder::GetTexture("Assets/Mining/64x64/" + rockNames.back() + "1.png"), 1, 1, rockNames.back(), ini.readInt(rockNames.back(), "health"), ini.readInt(rockNames.back(), "givesGold"), ini.readInt(rockNames.back(), "givesRed"));
 }
 
 void Game::handlePlayerCollisions(Player& player, const std::vector<Rock>& rocks) {
     for (const auto& rock : rocks) {
         if (checkCollision(player.getSprite(), rock.getSprite())) {
-            // Простейшая реакция: возвращаем игрока в предыдущее положение
-            // (Эффективнее использовать предыдущее положение игрока)
             sf::FloatRect intersection;
             if (player.getSprite().getGlobalBounds().intersects(rock.getSprite().getGlobalBounds(), intersection)) {
                 if (intersection.width > intersection.height) {
-                    // Вертикальное столкновение
+
                     if (player.getSprite().getPosition().y < rock.getSprite().getPosition().y) {
                         player.moveAlone(0, -intersection.height);
                     }
@@ -551,7 +561,6 @@ void Game::handlePlayerCollisions(Player& player, const std::vector<Rock>& rocks
                     }
                 }
                 else {
-                    // Горизонтальное столкновение
                     if (player.getSprite().getPosition().x < rock.getSprite().getPosition().x) {
                         player.moveAlone(-intersection.width, 0);
                     }

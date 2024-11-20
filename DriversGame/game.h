@@ -25,15 +25,15 @@ public:
 	Enemy* findClosestEnemy(sf::Sprite sprite, float range);
 
 	void spawnExperience(std::vector<Experience>& experience, Enemy enemy);
-	void calculateBuffs(IniFile ini, std::vector<std::pair<std::string, float>>& availableBuffs);
+	void calculateBuffs(IniFile& ini, std::vector<std::pair<std::string, float>>& availableBuffs);
 
 	void giveBuff(Player& player, std::pair<std::string, float> buff);
 
-	void spawnRocks(std::vector<Rock>& rocks, int numRocks);
+	void spawnRocks(std::vector<Rock>& rocks, int numRocks, IniFile& ini);
 
 	void handlePlayerCollisions(Player& player, const std::vector<Rock>& rocks);
 
-	std::string chooseRock();
+	Rock chooseRock(IniFile& ini);
 private:
 	sf::RectangleShape GameBackground;
 	Player player;
