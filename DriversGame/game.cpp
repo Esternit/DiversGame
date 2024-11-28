@@ -51,9 +51,9 @@ void Game::processer() {
     frame2.setFillColor(sf::Color(0, 0, 255, 128));
     frame3.setFillColor(sf::Color(0, 0, 255, 128));
 
-    sf::Text text1("Power-Up 1", font, 20);
-    sf::Text text2("Power-Up 2", font, 20);
-    sf::Text text3("Power-Up 3", font, 20);
+    sf::Text text1("Power-Up 1", font, 14);
+    sf::Text text2("Power-Up 2", font, 14);
+    sf::Text text3("Power-Up 3", font, 14);
     sf::Text textGold("Gold: 0", font, 20);
     sf::Text textRed("Red: 0", font, 20);
 
@@ -65,9 +65,9 @@ void Game::processer() {
 
     text1.setCharacterSize(14);
 
-    sf::Music music;
-    music.openFromFile("Assets/BGMusic.mp3");
-    music.play();
+    //sf::Music music;
+    //music.openFromFile("Assets/BGMusic.mp3");
+    //music.play();
 
     bool powerUpSelected = true;
 
@@ -107,7 +107,9 @@ void Game::processer() {
     std::vector<Rock> rocks;
     
     spawnRocks(rocks, 10, iniRocks);
-    spawnEnemies(100);
+
+    std::vector <Spawner> spawners{Spawner(0,0), Spawner(0,GAME_HEIGHT), Spawner(GAME_WIDTH,0), Spawner(GAME_WIDTH,GAME_HEIGHT)};
+    MobController mobController(0.5f, 20.0f);
     while (window.isOpen())
     {
         Event e;
@@ -129,7 +131,9 @@ void Game::processer() {
         else {
 
 
-
+            if (mobController.startWave()) {
+                mobController.spawnEnemies(enemies, spawners, playerView);
+            }
             while (window.pollEvent(e))
             {
                 if (e.type == Event::Closed)
@@ -303,8 +307,25 @@ void Game::processer() {
             if (closestEnemy != nullptr) {
                 if (shootClock.getElapsedTime().asSeconds() > player.getGun().getFireRate()) {
                     shootClock.restart();
-                    Vector2f diractionEnemyBullet = normalize(closestEnemy->getSprite().getPosition() - player.getSprite().getPosition());
-                    bullets.push_back(Bullet(TextureHolder::GetTexture("Assets/Guns/Bullets.png"), player.getGun().getGun().getPosition().x, player.getGun().getGun().getPosition().y, 8, 10, player.getGun().getAttackGamage(), FrameAnimation(180, 0, 130, 0), diractionEnemyBullet));
+                    Vector2f directionEnemyBullet = normalize(closestEnemy->getSprite().getPosition() - player.getSprite().getPosition());
+
+                    bool chance = player.getGun().getCriticalChance() > rand() % 100;
+                    for (int i = 0; i < player.getGun().getRayCastsAmount(); i++) {
+                        float angleOffset = (i - (player.getGun().getRayCastsAmount() - 1) / 2.0f) * 0.1f; // Например, 0.1 радиан
+                        sf::Vector2f bulletDirection = rotateVector(directionEnemyBullet, angleOffset);
+
+                        bullets.push_back(Bullet(
+                            TextureHolder::GetTexture("Assets/Guns/Bullets.png"),
+                            player.getGun().getGun().getPosition().x,
+                            player.getGun().getGun().getPosition().y,
+                            8, 10,
+                            chance ? player.getGun().getAttackGamage() * 2 : player.getGun().getAttackGamage(),
+                            FrameAnimation(180, 0, 130, 0),
+                            bulletDirection,
+                            chance ? sf::Color::Red : sf::Color::Blue
+                        ));
+                    }
+                    //bullets.push_back(Bullet(TextureHolder::GetTexture("Assets/Guns/Bullets.png"), player.getGun().getGun().getPosition().x, player.getGun().getGun().getPosition().y, 8, 10, chance ? player.getGun().getAttackGamage() * 2 : player.getGun().getAttackGamage(), FrameAnimation(180, 0, 130, 0), diractionEnemyBullet, chance ? Color::Red : Color::Blue));
                 }
 
                 bullets.erase(std::remove_if(bullets.begin(), bullets.end(),
@@ -524,10 +545,14 @@ void Game::giveBuff(Player& player, Buff buff) {
         player.getGun().setFireRate(player.getGun().getFireRate() * buff.getValue());
     }
     else if (buff.getName() == "increase max health") {
-        player.setMaxHealth(player.getMaxHealth() * buff.getValue());
+        player.setMaxHealth(player.getMaxHealth() + buff.getValue());
+        player.setHealth(player.getMaxHealth());
     }
     else if (buff.getName() == "increase movement speed") {
-        player.setSpeed(player.getSpeed() * buff.getValue());
+        player.setSpeed(player.getSpeed() + buff.getValue());
+    }
+    else if (buff.getName() == "increase bullet per shot") {
+        player.getGun().setRayCastsAmount(player.getGun().getRayCastsAmount() + buff.getValue());
     }
 
 }
@@ -654,4 +679,13 @@ void Game::processerMenu() {
 		menu.draw();
 		window.display();
     }
+}
+
+Vector2f Game::rotateVector(const sf::Vector2f& vec, float angle) {
+    float cosAngle = std::cos(angle);
+    float sinAngle = std::sin(angle);
+    return sf::Vector2f(
+        vec.x * cosAngle - vec.y * sinAngle,
+        vec.x * sinAngle + vec.y * cosAngle
+    );
 }

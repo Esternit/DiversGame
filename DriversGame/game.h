@@ -13,6 +13,7 @@
 #include "Buff.h"
 #include "GameMenu.h"
 #include "Rock.h"
+#include "MobController.h"
 
 class Game {
 public:
@@ -38,6 +39,8 @@ public:
 	void handlePlayerCollisions(Player& player, const std::vector<Rock>& rocks);
 
 	Rock chooseRock(IniFile& ini);
+	sf::Vector2f rotateVector(const sf::Vector2f& vec, float angle);
+
 private:
 	sf::RectangleShape GameBackground;
 	Player player;

@@ -18,7 +18,7 @@ void Rock::updateTexture() {
 bool Rock::takeDamage(int damage) {
 	health -= damage;
 
-	if ((health < 100.0f && imagePos == 1) || (health < 50.0f && imagePos == 2)) {
+	if ((health < 30.0f && imagePos == 1) || (health < 15.0f && imagePos == 2)) {
 		updateTexture();
 	}
 	return health <= 0;

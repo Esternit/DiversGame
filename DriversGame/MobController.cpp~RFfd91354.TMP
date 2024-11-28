@@ -1,0 +1,42 @@
+#include "MobController.h"
+
+MobController::MobController(float delay) : delay(delay) : currentSpawner(0,0) {
+	timer.restart();
+}
+
+void MobController::spawnEnemies(std::vector<Enemy>& enemies, std::vector<Spawner>& spawners, sf::View& view) {
+    if (timer.getElapsedTime().asSeconds() > delay) {
+		timer.restart();
+        std::vector<Spawner> calculatedSpawners = calculateSpawners(spawners, view);
+        int index = rand() % calculatedSpawners.size();
+        Spawner spawner = calculatedSpawners[index];
+
+    }
+    int posX, posY;
+
+    for (int i = 0; i < amount; i++) {
+        posX = rand() % 2401;
+        posY = rand() % 1441;
+        enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/firebug.png"), posX, posY, FrameAnimation(0, 90, 0, 100), 65, 40, 20, 3, 2, "Firebug"));
+        //enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/Minotaur.png"), posX, posY, FrameAnimation(0, 90, 0, 100), 60, 60, 100, 10, 20, "Minotaur"));
+    }
+}
+
+std::vector<Spawner>& MobController::calculateSpawners(std::vector<Spawner>& spawners, sf::View& view) {
+    sf::FloatRect viewBounds(
+        view.getCenter().x - view.getSize().x / 2,
+        view.getCenter().y - view.getSize().y / 2,
+        view.getSize().x,                         
+        view.getSize().y
+    );
+
+    std::vector<Spawner> outsideViewSpawners;
+
+    for (const auto& spawner : spawners) {
+        if (!viewBounds.contains(spawner.posX, spawner.posY)) {
+            outsideViewSpawners.push_back(spawner);
+        }
+    }
+
+    return outsideViewSpawners;
+}

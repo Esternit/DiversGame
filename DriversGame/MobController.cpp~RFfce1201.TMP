@@ -1,0 +1,9 @@
+#include "MobController.h"
+
+MobController::MobController() {
+	timer.restart();
+}
+
+void MobController::spawnEnemies(std::vector<Enemy>& enemies, std::vector<Spawner>& spawners, Player& player) {
+
+}

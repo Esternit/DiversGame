@@ -1,0 +1,12 @@
+#pragma once
+
+class Spawner {
+private:
+	int posX;
+	int PosY;
+public:
+	Spawner(int posX, int posY) {
+		this->posX = posX;
+		this->PosY = posY;
+	}
+};

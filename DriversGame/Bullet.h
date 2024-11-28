@@ -10,7 +10,7 @@
 class Bullet
 {
 public:
-	Bullet(const sf::Texture& textures, float posX, float posY, float width, float height, float attackGamage, FrameAnimation anim, sf::Vector2f direction);
+	Bullet(const sf::Texture& textures, float posX, float posY, float width, float height, float attackGamage, FrameAnimation anim, sf::Vector2f direction, sf::Color color);
 	Bullet() = default;
 
 	void animateMovement();
@@ -24,12 +24,17 @@ public:
 	float getAttackGamage() const {
 		return attackGamage;
 	}
+
+	sf::Clock getClock() {
+		return clock;
+	}
 private:
 	sf::Sprite bullet;
 	float attackGamage;
 	FrameAnimation animation;
 	float width, height;
 	sf::Vector2f direction;
+	sf::Clock clock;
 };
 
 #endif // !

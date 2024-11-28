@@ -24,10 +24,18 @@ public:
 	void setRange(float range) { this->range = range; }
 
 	void setFireRate(float fireRate) { this->fireRate = fireRate; }
+
+	float getCriticalChance() { return criticalChance; }
+
+	int getRayCastsAmount() { return rayCastsAmount; }
+
+	void setRayCastsAmount(int rayCastsAmount) { this->rayCastsAmount = rayCastsAmount; }
 private:
 	sf::Sprite gun;
 	float attackGamage;
 	float fireRate;
 	float range;
+	float criticalChance = 0.1f;
+	int rayCastsAmount = 1;
 };
 
