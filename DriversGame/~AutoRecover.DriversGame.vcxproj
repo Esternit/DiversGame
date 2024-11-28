@@ -139,11 +139,13 @@
     <ClCompile Include="Experience.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="Gun.cpp" />
+    <ClCompile Include="IniFile.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Minotaur.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="Rock.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Buff.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Experience.h" />
@@ -151,8 +153,8 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="IniFile.h" />
-    <ClInclude Include="Minotaur.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="Rock.h" />
     <ClInclude Include="TextureHolder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -5,6 +5,6 @@
 int main(int argc, char const *argv[])
 {
     Game game("Assets/Environment/bg.png", "Assets/Adventurer/adventurer-Sheet.png");
-    game.processer();
+    game.processerMenu();
     return 0;
 }

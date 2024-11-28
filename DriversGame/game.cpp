@@ -1,4 +1,4 @@
-#include "game.h"
+﻿#include "game.h"
 #include <SFML/Graphics.hpp>
 #include <string.h>
 #include <fstream>
@@ -8,6 +8,7 @@
 #include <map>
 #include <cstdlib>
 #include <random>
+#include <SFML/Audio.hpp>
 
 #include <ctime>
 #include <limits>
@@ -21,18 +22,17 @@ const std::vector<float> probabilities = { 0.3f, 0.4f, 0.2f, 0.1f };
 
 using namespace sf;
 
-Game::Game(std::string BGpath, std::string playerPath) :  player(TextureHolder::GetTexture(playerPath), 100, 2, TextureHolder::GetTexture("Assets/Guns/tier-1.png")) {
+Game::Game(std::string BGpath, std::string playerPath) :  player(TextureHolder::GetTexture(playerPath), 100, 2, TextureHolder::GetTexture("Assets/Guns/tier-1.png")), window(VideoMode(1280, 720), "Divers") {
     //setting and loading background
 
     GameBackground.setTexture(&TextureHolder::GetTexture(BGpath));
 
     sf::Vector2u textureSize = TextureHolder::GetTexture(BGpath).getSize();
     GameBackground.setSize(sf::Vector2f(textureSize.x, textureSize.y));
+    
 }
 
 void Game::processer() {
-    RenderWindow window(VideoMode(1280, 720), "Divers");
-
     Vector2f velocity;
 
     IniFile iniBuffs("Assets/config.ini");
@@ -54,14 +54,20 @@ void Game::processer() {
     sf::Text text1("Power-Up 1", font, 20);
     sf::Text text2("Power-Up 2", font, 20);
     sf::Text text3("Power-Up 3", font, 20);
+    sf::Text textGold("Gold: 0", font, 20);
+    sf::Text textRed("Red: 0", font, 20);
 
     text1.setFillColor(sf::Color::White);
     text2.setFillColor(sf::Color::White);
     text3.setFillColor(sf::Color::White);
+	textGold.setFillColor(sf::Color::White);
+	textRed.setFillColor(sf::Color::White);
 
     text1.setCharacterSize(14);
 
-
+    sf::Music music;
+    music.openFromFile("Assets/BGMusic.mp3");
+    music.play();
 
     bool powerUpSelected = true;
 
@@ -75,7 +81,7 @@ void Game::processer() {
     int attackFrame = -1;
     std::vector<Bullet> bullets;
     std::vector<Experience> experience;
-    std::vector<std::pair<std::string, float>> availableBuffs;
+    std::vector<Buff> availableBuffs;
 
     const float mapWidth = GAME_WIDTH;
     const float mapHeight = GAME_HEIGHT;
@@ -105,316 +111,343 @@ void Game::processer() {
     while (window.isOpen())
     {
         Event e;
+        if (player.getHealth() <= 0) {
+            window.clear();
 
-        while (window.pollEvent(e))
-        {
-            if (e.type == Event::Closed)
-                window.close();
-            else if (e.type == sf::Event::MouseButtonPressed && !powerUpSelected) {
-                sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
-                sf::Vector2f mousePos = window.mapPixelToCoords(pixelPos, playerView);
-
-                if (frame1.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                    powerUpSelected = true;
-                    giveBuff(player, availableBuffs[0]);
-                    availableBuffs.clear();
+            if (animationMovementClock.getElapsedTime().asSeconds() > 0.1) {
+                if (!player.animateDeath()) {
+                    return;
                 }
-                else if (frame2.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                    powerUpSelected = true;
-                    giveBuff(player, availableBuffs[1]);
-                    availableBuffs.clear();
-                }
-                else if (frame3.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-                    powerUpSelected = true;
-                    giveBuff(player, availableBuffs[2]);
-                    availableBuffs.clear();
-                }
+				animationMovementClock.restart();
             }
-            else if (e.type == sf::Event::KeyPressed)
+
+            window.draw(GameBackground);
+            window.draw(player.getSprite());
+            window.display();
+        }
+
+        else {
+
+
+
+            while (window.pollEvent(e))
             {
-                if (e.key.code == sf::Keyboard::A) {
-                    keyStatuses["A"] = 1;
-                    velocity.x = -player.getSpeed();
-                }
-                else if (e.key.code == sf::Keyboard::D) {
-					keyStatuses["D"] = 1;
-                    velocity.x = player.getSpeed();
-                }
+                if (e.type == Event::Closed)
+                    window.close();
+                else if (e.type == sf::Event::MouseButtonPressed && !powerUpSelected) {
+                    sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
+                    sf::Vector2f mousePos = window.mapPixelToCoords(pixelPos, playerView);
 
-                else if (e.key.code == sf::Keyboard::W) {
-                    keyStatuses["W"] = 1;
-                    velocity.y = -player.getSpeed();
-                }
-                else if (e.key.code == sf::Keyboard::S) {
-					keyStatuses["S"] = 1;
-                    velocity.y = player.getSpeed();
-                }
-                else if (e.key.code == sf::Keyboard::E) {
-					attack = true;
-                    attackFrame = rand() % 3;
-                }
-                else if (e.key.code == sf::Keyboard::LShift) {
-					speedIncrease = true;
-                }
-
-            }
-            else if (e.type == sf::Event::KeyReleased)
-            {
-                if (e.key.code == sf::Keyboard::A) {
-                    keyStatuses["A"] = 0;
-                    if (keyStatuses["D"] == 0) {
-                         velocity.x = 0;
+                    if (frame1.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                        powerUpSelected = true;
+                        giveBuff(player, availableBuffs[0]);
+                        availableBuffs.clear();
                     }
-					else {
-						velocity.x = player.getSpeed();
-					}
-                }
-                else if (e.key.code == sf::Keyboard::D) {
-					keyStatuses["D"] = 0;
-					if (keyStatuses["A"] == 0) {
-						velocity.x = 0;
-					}
-                    else {
-						velocity.x = -player.getSpeed();
+                    else if (frame2.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                        powerUpSelected = true;
+                        giveBuff(player, availableBuffs[1]);
+                        availableBuffs.clear();
+                    }
+                    else if (frame3.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                        powerUpSelected = true;
+                        giveBuff(player, availableBuffs[2]);
+                        availableBuffs.clear();
                     }
                 }
-                else if (e.key.code == sf::Keyboard::W) {
-                    keyStatuses["W"] = 0;
-                    if (keyStatuses["S"] == 0) {
-                        velocity.y = 0;
+                else if (e.type == sf::Event::KeyPressed)
+                {
+                    if (e.key.code == sf::Keyboard::A) {
+                        keyStatuses["A"] = 1;
+                        velocity.x = -player.getSpeed();
                     }
-                    else {
-						velocity.y = player.getSpeed();
+                    else if (e.key.code == sf::Keyboard::D) {
+                        keyStatuses["D"] = 1;
+                        velocity.x = player.getSpeed();
                     }
+
+                    else if (e.key.code == sf::Keyboard::W) {
+                        keyStatuses["W"] = 1;
+                        velocity.y = -player.getSpeed();
+                    }
+                    else if (e.key.code == sf::Keyboard::S) {
+                        keyStatuses["S"] = 1;
+                        velocity.y = player.getSpeed();
+                    }
+                    else if (e.key.code == sf::Keyboard::E) {
+                        attack = true;
+                        attackFrame = rand() % 3;
+                    }
+                    else if (e.key.code == sf::Keyboard::LShift) {
+                        speedIncrease = true;
+                    }
+
                 }
-                else if (e.key.code == sf::Keyboard::S) {
-					keyStatuses["S"] = 0;
-                    if (keyStatuses["W"] == 0) {
-						velocity.y = 0;
-                    }
-                    else {
-						velocity.y = -player.getSpeed();
-                    }
-                }
-				else if (e.key.code == sf::Keyboard::LShift) {
-					speedIncrease = false;
-				}
-            }
-        }
-
-        auto deltaTime = frameClock.restart();
-
-        player.move(velocity * deltaTime.asSeconds(), speedIncrease, mapWidth, mapHeight);
-
-        
-
-        for (auto& bullet : bullets) {
-            bullet.move(deltaTime.asSeconds());
-        }
-
-        Enemy* closestEnemy = findClosestEnemy(player.getSprite(), player.getGun().getRange());
-
-        
-
-        for (auto& enemy : enemies) {
-            Vector2f diractionEnemy = normalize(player.getSprite().getPosition() - enemy.getSprite().getPosition());
-            if (!enemy.getAttack()) {
-                enemy.move(diractionEnemy * 50.0f * deltaTime.asSeconds(), enemies);
-            }
-
-            if (enemy.getAnimateMovementClock().getElapsedTime().asSeconds() > 0.15 && !enemy.getAttack()) {
-
-                enemy.resetAnimateMovementClock();
-                enemy.animateMovement(diractionEnemy);
-            }
-
-            FloatRect enemyBounds = enemy.getSprite().getGlobalBounds();
-
-            enemyBounds.width -= diractionEnemy.x < 0 ? 20 : 50;
-            enemyBounds.height -= 20;
-
-            if (enemyBounds.intersects(player.getSprite().getGlobalBounds()) && !enemy.getAttack()) {
-                enemy.setAttack(true);
-                player.setHealth(player.getHealth() - enemy.getDamage());
-            }
-
-            if (enemy.getAttack() && enemy.getAnimateAttackClock().getElapsedTime().asSeconds() > 0.1) {
-                enemy.animateAttack(diractionEnemy);
-                enemy.resetAnimateAttackClock();
-            }
-        }
-
-		
-        if (animationMovementClock.getElapsedTime().asSeconds() > (velocity.x == 0 && velocity.y == 0 ? 0.25 : 0.1) && !attack) {
-            animationMovementClock.restart();
-            player.animateMovement(velocity);
-        }
-
-        if (attack && animateAttackClock.getElapsedTime().asSeconds() > 0.1) {
-            if (!player.animateAttack(velocity * deltaTime.asSeconds(), attackFrame)) {
-                for (int i = 0; i < rocks.size(); i++) {
-                    if (checkCollision(player.getSprite(), rocks[i].getSprite())) {
-                        rocks[i].takeDamage(player.getMeleeAttack());
-                    }
-                }
-                attack = false;
-            }
-
-
-			animateAttackClock.restart();
-        }
-
-        handlePlayerCollisions(player, rocks);
-
-        rocks.erase(std::remove_if(rocks.begin(), rocks.end(),
-            [this](Rock& rock) {
-                if (rock.getHealth() <= 0) {
-                    player.setGold(player.getGold() + rock.getGivesGold());
-                    player.setRed(player.getRed() + rock.getGivesRed());
-                    return true;
-                }
-                return false;
-            }), rocks.end());
-
-        if (closestEnemy != nullptr) {
-            if (shootClock.getElapsedTime().asSeconds() > player.getGun().getFireRate()) {
-                shootClock.restart();
-                Vector2f diractionEnemyBullet = normalize(closestEnemy->getSprite().getPosition() - player.getSprite().getPosition());
-                bullets.push_back(Bullet(TextureHolder::GetTexture("Assets/Guns/Bullets.png"), player.getGun().getGun().getPosition().x, player.getGun().getGun().getPosition().y, 8, 10, player.getGun().getAttackGamage(), FrameAnimation(180, 0, 130, 0), diractionEnemyBullet));
-            }
-
-            bullets.erase(std::remove_if(bullets.begin(), bullets.end(),
-                [this](const Bullet& bullet) {
-                    for (int i = 0; i < enemies.size(); i++) {
-                        if (checkCollision(bullet.getSprite(), enemies[i].getSprite())) {
-                            enemies[i].updateHealth(bullet.getAttackGamage());
-                            return true;
+                else if (e.type == sf::Event::KeyReleased)
+                {
+                    if (e.key.code == sf::Keyboard::A) {
+                        keyStatuses["A"] = 0;
+                        if (keyStatuses["D"] == 0) {
+                            velocity.x = 0;
+                        }
+                        else {
+                            velocity.x = player.getSpeed();
                         }
                     }
-                    return false;
-                }), bullets.end());
-            player.setGunRotation(closestEnemy->getSprite().getPosition());
-        }
-
-
-        enemies.erase(std::remove_if(enemies.begin(), enemies.end(),
-			[this, &experience](Enemy& enemy) {
-                if (enemy.getHealth() <= 0) {
-                    spawnExperience(experience, enemy);
-                    return true;
+                    else if (e.key.code == sf::Keyboard::D) {
+                        keyStatuses["D"] = 0;
+                        if (keyStatuses["A"] == 0) {
+                            velocity.x = 0;
+                        }
+                        else {
+                            velocity.x = -player.getSpeed();
+                        }
+                    }
+                    else if (e.key.code == sf::Keyboard::W) {
+                        keyStatuses["W"] = 0;
+                        if (keyStatuses["S"] == 0) {
+                            velocity.y = 0;
+                        }
+                        else {
+                            velocity.y = player.getSpeed();
+                        }
+                    }
+                    else if (e.key.code == sf::Keyboard::S) {
+                        keyStatuses["S"] = 0;
+                        if (keyStatuses["W"] == 0) {
+                            velocity.y = 0;
+                        }
+                        else {
+                            velocity.y = -player.getSpeed();
+                        }
+                    }
+                    else if (e.key.code == sf::Keyboard::LShift) {
+                        speedIncrease = false;
+                    }
                 }
-				return false;
-			}), enemies.end());
-
-
-		experience.erase(std::remove_if(experience.begin(), experience.end(),
-            [this](Experience& experience) {
-                if (checkCollision(experience.getSprite(), player.getSprite())) {
-                    player.updateExperience(experience.getXpGiven());
-                    return true;
-                }
-				return false;
-            }), experience.end());
-
-
-        Vector2f playerPos = player.getSprite().getPosition();
-        Vector2f viewSize = playerView.getSize();
-        float halfWidth = viewSize.x / 2.0f;
-        float halfHeight = viewSize.y / 2.0f;
-
-        float clampedX = std::max(halfWidth, std::min(playerPos.x, mapWidth - halfWidth));
-        float clampedY = std::max(halfHeight, std::min(playerPos.y, mapHeight - halfHeight));
-
-        playerView.setCenter(clampedX, clampedY);
-
-		window.setView(playerView);
-
-        window.clear();
-        window.draw(GameBackground);
-        for (auto& enemy : enemies) {
-            window.draw(enemy.getSprite());
-        }
-        for (auto& experience : experience) {
-            window.draw(experience.getSprite());
-        }
-
-        for (auto& rock : rocks) {
-            window.draw(rock.getSprite());
-        }
-        
-        window.draw(player.getSprite());
-        window.draw(player.getGun().getGun());
-        for (auto& bullet : bullets) {
-			window.draw(bullet.getSprite());
-        }
-
-        Vector2f viewCenter = playerView.getCenter();
-        float barX = viewCenter.x - viewSize.x / 2 + 50;
-        float barY = viewCenter.y - viewSize.y / 2 + 50;
-
-        healthBarBg.setPosition(barX, barY);
-        healthBar.setPosition(barX, barY);
-
-        if (player.getExperience() >= player.getLevel() * 10) {
-            player.setLevel(player.getLevel() + 1);
-            player.setExperience(0);
-            powerUpSelected = false;
-        }
-
-        experienceBarBg.setPosition(barX, barY + 30);
-		experienceBar.setPosition(barX, barY + 30);
-
-        if (!powerUpSelected) {
-            if (availableBuffs.size() == 0) {
-                calculateBuffs(iniBuffs, availableBuffs);
-
-                text1.setString(availableBuffs[0].first);
-                text2.setString(availableBuffs[1].first);
-                text3.setString(availableBuffs[2].first);
             }
 
-            frame1.setPosition(barX + 300, barY + 200);
-            frame2.setPosition(barX + 550, barY + 200);
-            frame3.setPosition(barX + 800, barY + 200);
+            auto deltaTime = frameClock.restart();
+
+            player.move(velocity * deltaTime.asSeconds(), speedIncrease, mapWidth, mapHeight);
+
+
+
+            for (auto& bullet : bullets) {
+                bullet.move(deltaTime.asSeconds());
+            }
+
+            Enemy* closestEnemy = findClosestEnemy(player.getSprite(), player.getGun().getRange());
+
+
+
+            for (auto& enemy : enemies) {
+                Vector2f diractionEnemy = normalize(player.getSprite().getPosition() - enemy.getSprite().getPosition());
+                if (!enemy.getAttack()) {
+                    enemy.move(diractionEnemy * 50.0f * deltaTime.asSeconds(), enemies);
+                }
+
+                if (enemy.getAnimateMovementClock().getElapsedTime().asSeconds() > 0.15 && !enemy.getAttack()) {
+
+                    enemy.resetAnimateMovementClock();
+                    enemy.animateMovement(diractionEnemy);
+                }
+
+                FloatRect enemyBounds = enemy.getSprite().getGlobalBounds();
+
+                enemyBounds.width -= diractionEnemy.x < 0 ? 20 : 50;
+                enemyBounds.height -= 20;
+
+                if (enemyBounds.intersects(player.getSprite().getGlobalBounds()) && !enemy.getAttack()) {
+                    enemy.setAttack(true);
+                    player.setHealth(player.getHealth() - enemy.getDamage());
+                }
+
+                if (enemy.getAttack() && enemy.getAnimateAttackClock().getElapsedTime().asSeconds() > 0.1) {
+                    enemy.animateAttack(diractionEnemy);
+                    enemy.resetAnimateAttackClock();
+                }
+            }
+
+
+            if (animationMovementClock.getElapsedTime().asSeconds() > (velocity.x == 0 && velocity.y == 0 ? 0.25 : 0.1) && !attack) {
+                animationMovementClock.restart();
+                player.animateMovement(velocity);
+            }
+
+            if (attack && animateAttackClock.getElapsedTime().asSeconds() > 0.1) {
+                if (!player.animateAttack(velocity * deltaTime.asSeconds(), attackFrame)) {
+                    for (int i = 0; i < rocks.size(); i++) {
+                        if (checkCollision(player.getSprite(), rocks[i].getSprite())) {
+                            rocks[i].takeDamage(player.getMeleeAttack());
+                        }
+                    }
+                    attack = false;
+                }
+
+
+                animateAttackClock.restart();
+            }
+
+            handlePlayerCollisions(player, rocks);
+
+            rocks.erase(std::remove_if(rocks.begin(), rocks.end(),
+                [this](Rock& rock) {
+                    if (rock.getHealth() <= 0) {
+                        player.setGold(player.getGold() + rock.getGivesGold());
+                        player.setRed(player.getRed() + rock.getGivesRed());
+                        return true;
+                    }
+                    return false;
+                }), rocks.end());
+
+            if (closestEnemy != nullptr) {
+                if (shootClock.getElapsedTime().asSeconds() > player.getGun().getFireRate()) {
+                    shootClock.restart();
+                    Vector2f diractionEnemyBullet = normalize(closestEnemy->getSprite().getPosition() - player.getSprite().getPosition());
+                    bullets.push_back(Bullet(TextureHolder::GetTexture("Assets/Guns/Bullets.png"), player.getGun().getGun().getPosition().x, player.getGun().getGun().getPosition().y, 8, 10, player.getGun().getAttackGamage(), FrameAnimation(180, 0, 130, 0), diractionEnemyBullet));
+                }
+
+                bullets.erase(std::remove_if(bullets.begin(), bullets.end(),
+                    [this](const Bullet& bullet) {
+                        for (int i = 0; i < enemies.size(); i++) {
+                            if (checkCollision(bullet.getSprite(), enemies[i].getSprite())) {
+                                enemies[i].updateHealth(bullet.getAttackGamage());
+                                return true;
+                            }
+                        }
+                        return false;
+                    }), bullets.end());
+                player.setGunRotation(closestEnemy->getSprite().getPosition());
+            }
+
+
+            enemies.erase(std::remove_if(enemies.begin(), enemies.end(),
+                [this, &experience](Enemy& enemy) {
+                    if (enemy.getHealth() <= 0) {
+                        spawnExperience(experience, enemy);
+                        return true;
+                    }
+                    return false;
+                }), enemies.end());
+
+
+            experience.erase(std::remove_if(experience.begin(), experience.end(),
+                [this](Experience& experience) {
+                    if (checkCollision(experience.getSprite(), player.getSprite())) {
+                        player.updateExperience(experience.getXpGiven());
+                        return true;
+                    }
+                    return false;
+                }), experience.end());
+
+
+            Vector2f playerPos = player.getSprite().getPosition();
+            Vector2f viewSize = playerView.getSize();
+            float halfWidth = viewSize.x / 2.0f;
+            float halfHeight = viewSize.y / 2.0f;
+
+            float clampedX = std::max(halfWidth, std::min(playerPos.x, mapWidth - halfWidth));
+            float clampedY = std::max(halfHeight, std::min(playerPos.y, mapHeight - halfHeight));
+
+            playerView.setCenter(clampedX, clampedY);
+
+            window.setView(playerView);
+
+            window.clear();
+            window.draw(GameBackground);
+            for (auto& enemy : enemies) {
+                window.draw(enemy.getSprite());
+            }
+            for (auto& experience : experience) {
+                window.draw(experience.getSprite());
+            }
+
+            for (auto& rock : rocks) {
+                window.draw(rock.getSprite());
+            }
+
+            window.draw(player.getSprite());
+            window.draw(player.getGun().getGun());
+            for (auto& bullet : bullets) {
+                window.draw(bullet.getSprite());
+            }
+
+            Vector2f viewCenter = playerView.getCenter();
+            float barX = viewCenter.x - viewSize.x / 2 + 50;
+            float barY = viewCenter.y - viewSize.y / 2 + 50;
+
+            healthBarBg.setPosition(barX, barY);
+            healthBar.setPosition(barX, barY);
+
+            if (player.getExperience() >= player.getLevel() * 10) {
+                player.setLevel(player.getLevel() + 1);
+                player.setExperience(0);
+                powerUpSelected = false;
+            }
+
+            experienceBarBg.setPosition(barX, barY + 30);
+            experienceBar.setPosition(barX, barY + 30);
+
+            textGold.setPosition(barX + 10, barY + 60);
+			textRed.setPosition(barX + 10, barY + 80);
+
+            textGold.setString("Gold: " + std::to_string(player.getGold()));
+			textRed.setString("Red: " + std::to_string(player.getRed()));
+
+            if (!powerUpSelected) {
+                if (availableBuffs.size() == 0) {
+                    calculateBuffs(iniBuffs, availableBuffs);
+
+                    text1.setString(availableBuffs[0].getName() + "\n" + "Costs: " + std::to_string(availableBuffs[0].getCostGold()) + " gold, " + std::to_string(availableBuffs[0].getCostRed()) + " red");
+                    text2.setString(availableBuffs[1].getName() + "\n" + "Costs: " + std::to_string(availableBuffs[1].getCostGold()) + " gold, " + std::to_string(availableBuffs[1].getCostRed()) + " red");
+                    text3.setString(availableBuffs[2].getName() + "\n" + "Costs: " + std::to_string(availableBuffs[2].getCostGold()) + " gold, " + std::to_string(availableBuffs[2].getCostRed()) + " red");
+                }
+
+                frame1.setPosition(barX + 300, barY + 200);
+                frame2.setPosition(barX + 550, barY + 200);
+                frame3.setPosition(barX + 800, barY + 200);
 
 
 
 
-            text1.setPosition(
-                frame1.getPosition().x + (frame1.getSize().x - text1.getGlobalBounds().width) / 2,
-                frame1.getPosition().y + (frame1.getSize().y - text1.getGlobalBounds().height) / 2
-            );
+                text1.setPosition(
+                    frame1.getPosition().x + (frame1.getSize().x - text1.getGlobalBounds().width) / 2,
+                    frame1.getPosition().y + (frame1.getSize().y - text1.getGlobalBounds().height) / 2
+                );
 
-            text2.setPosition(
-                frame2.getPosition().x + (frame2.getSize().x - text2.getGlobalBounds().width) / 2,
-                frame2.getPosition().y + (frame2.getSize().y - text2.getGlobalBounds().height) / 2
-            );
+                text2.setPosition(
+                    frame2.getPosition().x + (frame2.getSize().x - text2.getGlobalBounds().width) / 2,
+                    frame2.getPosition().y + (frame2.getSize().y - text2.getGlobalBounds().height) / 2
+                );
 
-            text3.setPosition(
-                frame3.getPosition().x + (frame3.getSize().x - text3.getGlobalBounds().width) / 2,
-                frame3.getPosition().y + (frame3.getSize().y - text3.getGlobalBounds().height) / 2
-            );
+                text3.setPosition(
+                    frame3.getPosition().x + (frame3.getSize().x - text3.getGlobalBounds().width) / 2,
+                    frame3.getPosition().y + (frame3.getSize().y - text3.getGlobalBounds().height) / 2
+                );
 
 
-            window.draw(frame1);
-            window.draw(text1);
+                window.draw(frame1);
+                window.draw(text1);
 
-            window.draw(frame2);
-            window.draw(text2);
+                window.draw(frame2);
+                window.draw(text2);
 
-            window.draw(frame3);
-            window.draw(text3);
+                window.draw(frame3);
+                window.draw(text3);
+            }
+
+            float healthPercent = player.getHealth() / player.getMaxHealth();
+            float experiencePercent = player.getExperience() / (player.getLevel() * 10);
+            healthBar.setSize(Vector2f(200 * healthPercent, 20));
+            experienceBar.setSize(Vector2f(200 * experiencePercent, 20));
+            window.draw(healthBarBg);
+            window.draw(healthBar);
+            window.draw(experienceBarBg);
+            window.draw(experienceBar);
+            window.draw(textGold);
+			window.draw(textRed);
+            window.display();
         }
-
-        float healthPercent = player.getHealth() / player.getMaxHealth();
-        float experiencePercent = player.getExperience() / (player.getLevel() * 10);
-        healthBar.setSize(Vector2f(200 * healthPercent, 20));
-		experienceBar.setSize(Vector2f(200 * experiencePercent, 20));
-        window.draw(healthBarBg);
-        window.draw(healthBar);
-		window.draw(experienceBarBg);
-		window.draw(experienceBar);
-        window.display();
     }
 }
 
@@ -464,7 +497,7 @@ void Game::spawnExperience(std::vector<Experience>& experience, Enemy enemy){
     }
 }
 
-void Game::calculateBuffs(IniFile& ini, std::vector<std::pair<std::string, float>>& availableBuffs) {
+void Game::calculateBuffs(IniFile& ini, std::vector<Buff>& availableBuffs) {
     std::vector<std::string> sectionNames = ini.getSectionsNames();
     int sectionAmount = ini.getSectionsCount();
     std::vector<int> indexes;
@@ -476,21 +509,25 @@ void Game::calculateBuffs(IniFile& ini, std::vector<std::pair<std::string, float
 
         std::string name = ini.readString(sectionNames[index], "name");
         std::replace(name.begin(), name.end(), '_', ' ');
-        availableBuffs.push_back(std::make_pair(name, ini.readInt(sectionNames[index], "value")));
+        availableBuffs.push_back(Buff(name, ini.readFloat(sectionNames[index], "value"), ini.readInt(sectionNames[index], "costsGold"), ini.readInt(sectionNames[index], "costsRed")));
         indexes.push_back(index);
     }
 }
 
-void Game::giveBuff(Player& player, std::pair<std::string, float> buff) {
+void Game::giveBuff(Player& player, Buff buff) {
+    if(buff.getCostGold() > player.getGold() || buff.getCostRed() > player.getRed()) return;
 
-    if (buff.first == "increase fire rate") {
-        player.getGun().setFireRate(player.getGun().getFireRate() * buff.second);
+    player.setRed(player.getRed() - buff.getCostRed());
+	player.setGold(player.getGold() - buff.getCostGold());
+
+    if (buff.getName() == "increase fire rate") {
+        player.getGun().setFireRate(player.getGun().getFireRate() * buff.getValue());
     }
-    else if (buff.first == "increase max health") {
-        player.setMaxHealth(player.getMaxHealth() * buff.second);
+    else if (buff.getName() == "increase max health") {
+        player.setMaxHealth(player.getMaxHealth() * buff.getValue());
     }
-    else if (buff.first == "increase movement speed") {
-        player.setSpeed(player.getSpeed() * buff.second);
+    else if (buff.getName() == "increase movement speed") {
+        player.setSpeed(player.getSpeed() * buff.getValue());
     }
 
 }
@@ -570,5 +607,51 @@ void Game::handlePlayerCollisions(Player& player, const std::vector<Rock>& rocks
                 }
             }
         }
+    }
+}
+
+void Game::processerMenu() {
+    String menuNames[]{ L"Play", L"Exit" };
+
+    GameMenu menu(window, GAME_WIDTH / 4 + 70, GAME_HEIGHT / 8 - 70, 2, menuNames, 70, 140);
+    menu.setColorTextMenu(sf::Color::Blue, sf::Color::Red, sf::Color::White);
+    menu.AlignMenu(2);
+
+    while (window.isOpen()) {
+        Event event;
+
+        while (window.pollEvent(event))
+        {
+            if (event.type == Event::Closed)
+                window.close();
+            if (event.type == Event::KeyReleased)
+            {
+                if (event.key.code == Keyboard::Up) { menu.MoveUp(); }
+
+                if (event.key.code == Keyboard::Down) { menu.MoveDown(); }
+
+                if (event.key.code == Keyboard::Return)
+                {
+                    switch (menu.getSelectedMenuNumber())
+                    {
+                    case 0:
+                        processer();
+                        window.setView(window.getDefaultView());
+						break;
+                    case 1:
+						window.close();
+						break;
+
+                    }
+
+                }
+            }
+        }
+
+
+        window.clear();
+        window.draw(GameBackground);
+		menu.draw();
+		window.display();
     }
 }

@@ -35,6 +35,9 @@ public:
     /// Чтение значения типа double
     double readDouble(const std::string& section, const std::string& key,
         double def = 0);
+
+    float readFloat(const std::string& section, const std::string& key,
+        float def = 0);
     /// Чтение значения типа std::string
     std::string readString(const std::string& section, const std::string& key,
         const std::string& def = "");

@@ -3,8 +3,9 @@
 #include <iostream>
 #include <vector>
 
-const std::vector<int> animsXMoveMinotaur = { 65, 114, 164, 216, 264, 314 };
-const std::vector<int> animsXStayMinotaur = { 13, 64, 114, 161};
+const std::vector<int> animsXMovePlayer = { 65, 114, 164, 216, 264, 314 };
+const std::vector<int> animsXStayPlayer = { 13, 64, 114, 161};
+const std::vector<int> animsXDiePlayer = { 13, 64, 110, 165, 215, 264 };
 
 using namespace sf;
 
@@ -45,7 +46,7 @@ void Player::move(Vector2f direction, bool speedIncrease, float mapWidth, float 
 
 void Player::animateMovement(Vector2f direction) {
 	bool check = direction.x == 0 && direction.y == 0;
-	std::vector <int> animsX = check ? animsXStayMinotaur : animsXMoveMinotaur;
+	std::vector <int> animsX = check ? animsXStayPlayer : animsXMovePlayer;
 	if (direction.x == 0 && direction.y == 0) {
 		animation.FrameY = 0;
 	}
@@ -66,6 +67,22 @@ void Player::animateMovement(Vector2f direction) {
 		player.setTextureRect(IntRect(animsX[animation.FrameX], animation.FrameY, 25, 35));
 	}
 
+}
+
+bool Player::animateDeath() {
+	if (animation.FrameY != 343) {
+		animation.FrameX = 0;
+		animation.FrameY = 343;
+	}
+
+	player.setTextureRect(IntRect(animsXDiePlayer[animation.FrameX], animation.FrameY, 25, 35));
+
+	animation.FrameX += 1;
+	if (animation.FrameX >= animsXDiePlayer.size()) {
+		return false;
+	}
+	return true;
+	
 }
 
 bool Player::animateAttack(Vector2f direction, int attackFrame) {

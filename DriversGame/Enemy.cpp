@@ -3,8 +3,8 @@
 #include <iostream>
 
 const std::vector<int> yPosesMinotaur = {0, 200, 300 }; //stay/move/attack
-const std::vector<int> animsXMoveMinotaur = { 24, 120, 212, 310, 404 };
-const std::vector<int> animsXStayMinotaur = { 25, 120, 219, 315, 410 };
+const std::vector<int> animsXMovePlayer = { 24, 120, 212, 310, 404 };
+const std::vector<int> animsXStayPlayer = { 25, 120, 219, 315, 410 };
 const std::vector<int> animsXAttackMinotaur = { 4, 126, 220, 314, 410, 505, 602, 700, 794 };
 
 const std::vector<int> yPosesFirebug = { 524, 330, 524 };
@@ -64,7 +64,7 @@ void Enemy::animateMovement(Vector2f direction) {
 	std::vector <int> animsX;
 	int yPosStay = 0, yPosMove = 0;
 	if (name == "Minotaur") {
-		animsX = check ? animsXStayMinotaur : animsXMoveMinotaur;
+		animsX = check ? animsXStayPlayer : animsXMovePlayer;
 		yPosStay = yPosesMinotaur[0];
 		yPosMove = yPosesMinotaur[1];
 	}

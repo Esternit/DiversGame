@@ -145,6 +145,7 @@
     <ClCompile Include="Rock.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Buff.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Experience.h" />

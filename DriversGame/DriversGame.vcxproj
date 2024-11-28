@@ -138,6 +138,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Experience.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="GameMenu.cpp" />
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="IniFile.cpp" />
     <ClCompile Include="main.cpp" />
@@ -145,11 +146,13 @@
     <ClCompile Include="Rock.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Buff.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Experience.h" />
     <ClInclude Include="FrameAnimation.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="GameMenu.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="IniFile.h" />
     <ClInclude Include="player.h" />

@@ -69,6 +69,8 @@ public:
 	int getRed() {
 		return red;
 	}
+
+	bool animateDeath();
 private:
 	sf::Sprite player;
 	FrameAnimation animation;

@@ -10,12 +10,16 @@
 #include "Experience.h"
 #include <vector>
 #include "IniFile.h"
+#include "Buff.h"
+#include "GameMenu.h"
 #include "Rock.h"
 
 class Game {
 public:
 	Game(std::string BGpath, std::string playerPath);
 	void processer();
+
+	void processerMenu();
 
 	sf::Vector2f normalize(const sf::Vector2f& source);
 
@@ -25,9 +29,9 @@ public:
 	Enemy* findClosestEnemy(sf::Sprite sprite, float range);
 
 	void spawnExperience(std::vector<Experience>& experience, Enemy enemy);
-	void calculateBuffs(IniFile& ini, std::vector<std::pair<std::string, float>>& availableBuffs);
+	void calculateBuffs(IniFile& ini, std::vector<Buff>& availableBuffs);
 
-	void giveBuff(Player& player, std::pair<std::string, float> buff);
+	void giveBuff(Player& player, Buff buff);
 
 	void spawnRocks(std::vector<Rock>& rocks, int numRocks, IniFile& ini);
 
@@ -38,6 +42,7 @@ private:
 	sf::RectangleShape GameBackground;
 	Player player;
 	std::vector<Enemy> enemies;
+	sf::RenderWindow window;
 
 };
 #endif // !GAME_H

@@ -158,6 +158,14 @@ double IniFile::readDouble(const std::string& section, const std::string& key,
     return def;
 }
 
+float IniFile::readFloat(const std::string& section, const std::string& key, float def) {
+	if (isSectionExist(section) && isKeysExist(section, key))
+	{
+		return std::stof(data[section][key]);
+	}
+	return def;
+}
+
 std::string IniFile::readString(const std::string& section,
     const std::string& key,
     const std::string& def)
