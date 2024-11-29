@@ -109,7 +109,7 @@ void Game::processer() {
     spawnRocks(rocks, 10, iniRocks);
 
     std::vector <Spawner> spawners{Spawner(0,0), Spawner(0,GAME_HEIGHT), Spawner(GAME_WIDTH,0), Spawner(GAME_WIDTH,GAME_HEIGHT)};
-    MobController mobController(0.5f, 20.0f);
+    MobController mobController(0.5f,5.0f);
     while (window.isOpen())
     {
         Event e;
@@ -322,18 +322,21 @@ void Game::processer() {
                             chance ? player.getGun().getAttackGamage() * 2 : player.getGun().getAttackGamage(),
                             FrameAnimation(180, 0, 130, 0),
                             bulletDirection,
-                            chance ? sf::Color::Red : sf::Color::Blue
+                            chance ? sf::Color::Red : sf::Color::Blue,
+                            player.getGun().getTransferthrough()
                         ));
                     }
                     //bullets.push_back(Bullet(TextureHolder::GetTexture("Assets/Guns/Bullets.png"), player.getGun().getGun().getPosition().x, player.getGun().getGun().getPosition().y, 8, 10, chance ? player.getGun().getAttackGamage() * 2 : player.getGun().getAttackGamage(), FrameAnimation(180, 0, 130, 0), diractionEnemyBullet, chance ? Color::Red : Color::Blue));
                 }
 
                 bullets.erase(std::remove_if(bullets.begin(), bullets.end(),
-                    [this](const Bullet& bullet) {
+                    [this](Bullet& bullet) {
                         for (int i = 0; i < enemies.size(); i++) {
                             if (checkCollision(bullet.getSprite(), enemies[i].getSprite())) {
+                                bullet.setTransferThrough(bullet.getTransferThrough() - 1);
+                                std::cout << bullet.getTransferThrough() << std::endl;
                                 enemies[i].updateHealth(bullet.getAttackGamage());
-                                return true;
+                                return bullet.getTransferThrough() < 0;
                             }
                         }
                         return false;
@@ -345,6 +348,8 @@ void Game::processer() {
             enemies.erase(std::remove_if(enemies.begin(), enemies.end(),
                 [this, &experience](Enemy& enemy) {
                     if (enemy.getHealth() <= 0) {
+                        player.setGold(player.getGold() + enemy.getGivesGold());
+                        player.setRed(player.getRed() + enemy.getGivesRed());
                         spawnExperience(experience, enemy);
                         return true;
                     }
@@ -482,17 +487,6 @@ Vector2f Game::normalize(const sf::Vector2f& source) {
 
 bool Game::checkCollision(const sf::Sprite& rect1, const sf::Sprite& rect2) {
     return rect1.getGlobalBounds().intersects(rect2.getGlobalBounds());
-}
-
-void Game::spawnEnemies(int amount) {
-    int posX, posY;
-
-    for (int i = 0; i < amount; i++) {
-        posX = rand() % 2401;
-        posY = rand() % 1441;
-        enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/firebug.png"), posX, posY, FrameAnimation(0, 90, 0, 100), 65, 40, 20, 3, 2, "Firebug"));
-        //enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/Minotaur.png"), posX, posY, FrameAnimation(0, 90, 0, 100), 60, 60, 100, 10, 20, "Minotaur"));
-    }
 }
 
 Enemy* Game::findClosestEnemy(sf::Sprite sprite, float range) {

@@ -9,7 +9,7 @@ using namespace sf;
 class Enemy {
 public:
 
-    Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation animation, float width, float height, float health, float givesXp, float damage, std::string name);
+    Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation animation, float width, float height, float health, float givesXp, float damage, std::string name, int givesRed, int givesGold);
 
     Sprite getSprite();
 
@@ -71,6 +71,14 @@ public:
 	int getAmountXp() {
 		return amountXp;
 	}
+
+	int getGivesRed() {
+		return givesRed;
+	}
+
+	int getGivesGold() {
+		return givesGold;
+	}
 protected:
     Sprite enemy;
     Texture enemyTexture;
@@ -82,6 +90,8 @@ protected:
     float givesXp;
 	int amountXp;
     float damage;
+	int givesRed;
+	int givesGold;
 	std::string name;
     Clock animateMovementClock, animateAttackClock;
 };

@@ -30,12 +30,17 @@ public:
 	int getRayCastsAmount() { return rayCastsAmount; }
 
 	void setRayCastsAmount(int rayCastsAmount) { this->rayCastsAmount = rayCastsAmount; }
+
+	int getTransferthrough() { return transferthrough; }
+
+	void setTransferthrough(int transferthrough) { this->transferthrough = transferthrough; }
 private:
 	sf::Sprite gun;
 	float attackGamage;
 	float fireRate;
 	float range;
 	float criticalChance = 0.1f;
+	int transferthrough = 1;
 	int rayCastsAmount = 1;
 };
 

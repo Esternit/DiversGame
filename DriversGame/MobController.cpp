@@ -17,8 +17,7 @@ void MobController::spawnEnemies(std::vector<Enemy>& enemies, std::vector<Spawne
             currentSpawner = calculatedSpawners[index];
         }
         
-        enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/firebug.png"), currentSpawner.posX, currentSpawner.posY, FrameAnimation(0, 90, 0, 100), 65, 40, 20, 3, 2, "Firebug"));
-        std::cout << enemies.size() << std::endl;
+        enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/firebug.png"), currentSpawner.posX, currentSpawner.posY, FrameAnimation(0, 90, 0, 100), 65, 40, 20, 3, 2, "Firebug", 5, 5));
     }
 }
 
@@ -29,8 +28,6 @@ std::vector<Spawner> MobController::calculateSpawners(std::vector<Spawner>& spaw
         view.getSize().x,                         
         view.getSize().y
     );
-
-    std::cout << spawners.size() << std::endl;
 
     std::vector<Spawner> outsideViewSpawners;
 

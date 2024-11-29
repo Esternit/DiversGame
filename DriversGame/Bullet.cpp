@@ -6,7 +6,7 @@ const std::vector<int> animsXMovePlayer = { 180, 194, 211, 226 };
 
 using namespace sf;
 
-Bullet::Bullet(const Texture& textures, float posX, float posY, float width, float height, float attackGamage, FrameAnimation anim, Vector2f direction, Color color) : attackGamage(attackGamage), animation(anim), width(width), height(height), direction(direction) {
+Bullet::Bullet(const Texture& textures, float posX, float posY, float width, float height, float attackGamage, FrameAnimation anim, Vector2f direction, Color color, int transferThrough) : attackGamage(attackGamage), animation(anim), width(width), height(height), direction(direction), transferThrough(transferThrough) {
 	bullet.setTexture(textures);
 	bullet.setTextureRect(IntRect(anim.FrameX, anim.FrameY, width, height));
 	bullet.setPosition(posX, posY);

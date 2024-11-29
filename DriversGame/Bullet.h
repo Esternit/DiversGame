@@ -5,12 +5,14 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "FrameAnimation.h"
+#include <vector>
+#include "Enemy.h"
 
 
 class Bullet
 {
 public:
-	Bullet(const sf::Texture& textures, float posX, float posY, float width, float height, float attackGamage, FrameAnimation anim, sf::Vector2f direction, sf::Color color);
+	Bullet(const sf::Texture& textures, float posX, float posY, float width, float height, float attackGamage, FrameAnimation anim, sf::Vector2f direction, sf::Color color, int transferThrough);
 	Bullet() = default;
 
 	void animateMovement();
@@ -28,6 +30,14 @@ public:
 	sf::Clock getClock() {
 		return clock;
 	}
+
+	int getTransferThrough() {
+		return transferThrough;
+	}
+
+	void setTransferThrough(Enemy enemies) {
+		this->transferThrough = transferThrough;
+	}
 private:
 	sf::Sprite bullet;
 	float attackGamage;
@@ -35,6 +45,8 @@ private:
 	float width, height;
 	sf::Vector2f direction;
 	sf::Clock clock;
+	std::vector<Enemy> enemies;
+	int transferThrough;
 };
 
 #endif // !

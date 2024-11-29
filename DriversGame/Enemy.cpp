@@ -10,7 +10,7 @@ const std::vector<int> animsXAttackMinotaur = { 4, 126, 220, 314, 410, 505, 602,
 const std::vector<int> yPosesFirebug = { 524, 330, 524 };
 const std::vector<int> animsXMoveFirebug = { 35, 162, 290, 420, 545, 673, 802, 930 }; //65 - width
 const std::vector<int> animsXStayFirebug = { 35, 162, 290, 420, 545, 673, 802, 930, 1053, 1180, 1310};
-Enemy::Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation anim, float width,  float height, float health, float givesXp, float damage, std::string name) : animation(anim), width(width), height(height), attack(false), health(health), givesXp(givesXp), damage(damage), name(name) {
+Enemy::Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation anim, float width,  float height, float health, float givesXp, float damage, std::string name, int givesRed, int givesGold) : animation(anim), width(width), height(height), attack(false), health(health), givesXp(givesXp), damage(damage), name(name), givesRed(givesRed), givesGold(givesGold) {
 
 	enemy.setTexture(textures);
 	enemy.setTextureRect(IntRect(animation.FrameX, animation.FrameY, width, height));
