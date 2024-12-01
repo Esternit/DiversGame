@@ -7,7 +7,7 @@
 #include "FrameAnimation.h"
 #include <vector>
 #include "Enemy.h"
-
+#include <iostream>
 
 class Bullet
 {
@@ -35,8 +35,12 @@ public:
 		return transferThrough;
 	}
 
-	void setTransferThrough(Enemy enemies) {
-		this->transferThrough = transferThrough;
+	void setTransferThrough(int id) {
+		if(lastTransferredId != id) {
+			std::cout << id << " " <<  lastTransferredId << std::endl;
+			transferThrough--;
+			this->lastTransferredId = id;
+		}
 	}
 private:
 	sf::Sprite bullet;
@@ -47,6 +51,7 @@ private:
 	sf::Clock clock;
 	std::vector<Enemy> enemies;
 	int transferThrough;
+	int lastTransferredId = -1;
 };
 
 #endif // !

@@ -7,7 +7,7 @@ MobController::MobController(float delay, float delayWave) : delay(delay), delay
     timerWave.restart();
 }
 
-void MobController::spawnEnemies(std::vector<Enemy>& enemies, std::vector<Spawner>& spawners, sf::View& view) {
+void MobController::spawnEnemies(std::vector<Enemy>& enemies, std::vector<Spawner>& spawners, sf::View& view, int& currentId) {
     if (timer.getElapsedTime().asSeconds() > delay && enemies.size() < 150) {
         
 		timer.restart();
@@ -17,7 +17,8 @@ void MobController::spawnEnemies(std::vector<Enemy>& enemies, std::vector<Spawne
             currentSpawner = calculatedSpawners[index];
         }
         
-        enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/firebug.png"), currentSpawner.posX, currentSpawner.posY, FrameAnimation(0, 90, 0, 100), 65, 40, 20, 3, 2, "Firebug", 5, 5));
+        currentId++;
+        enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/firebug.png"), currentSpawner.posX, currentSpawner.posY, FrameAnimation(0, 90, 0, 100), 65, 40, 20, 3, 2, "Firebug", 5, 5, currentId));
     }
 }
 

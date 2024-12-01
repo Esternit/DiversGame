@@ -40,7 +40,7 @@ private:
 	float fireRate;
 	float range;
 	float criticalChance = 0.1f;
-	int transferthrough = 1;
+	int transferthrough = 0;
 	int rayCastsAmount = 1;
 };
 

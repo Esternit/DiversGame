@@ -9,7 +9,7 @@ public:
 	MobController(float delay, float delayWave);
 
 	bool startWave();
-	void spawnEnemies(std::vector<Enemy>& enemies, std::vector<Spawner>& spawners, sf::View& view);
+	void spawnEnemies(std::vector<Enemy>& enemies, std::vector<Spawner>& spawners, sf::View& view, int& currentId);
 	std::vector<Spawner> calculateSpawners(std::vector<Spawner>& spawners, sf::View& view);
 private:
 	sf::Clock timer;

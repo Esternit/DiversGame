@@ -110,6 +110,7 @@ void Game::processer() {
 
     std::vector <Spawner> spawners{Spawner(0,0), Spawner(0,GAME_HEIGHT), Spawner(GAME_WIDTH,0), Spawner(GAME_WIDTH,GAME_HEIGHT)};
     MobController mobController(0.5f,5.0f);
+    int enemyIds = 0;
     while (window.isOpen())
     {
         Event e;
@@ -132,7 +133,7 @@ void Game::processer() {
 
 
             if (mobController.startWave()) {
-                mobController.spawnEnemies(enemies, spawners, playerView);
+                mobController.spawnEnemies(enemies, spawners, playerView, enemyIds);
             }
             while (window.pollEvent(e))
             {
@@ -333,8 +334,7 @@ void Game::processer() {
                     [this](Bullet& bullet) {
                         for (int i = 0; i < enemies.size(); i++) {
                             if (checkCollision(bullet.getSprite(), enemies[i].getSprite())) {
-                                bullet.setTransferThrough(bullet.getTransferThrough() - 1);
-                                std::cout << bullet.getTransferThrough() << std::endl;
+                                bullet.setTransferThrough(enemies[i].getId());
                                 enemies[i].updateHealth(bullet.getAttackGamage());
                                 return bullet.getTransferThrough() < 0;
                             }
@@ -548,7 +548,12 @@ void Game::giveBuff(Player& player, Buff buff) {
     else if (buff.getName() == "increase bullet per shot") {
         player.getGun().setRayCastsAmount(player.getGun().getRayCastsAmount() + buff.getValue());
     }
-
+    else if (buff.getName() == "increase bullet transfer") {
+        player.getGun().setTransferthrough(player.getGun().getTransferthrough() + buff.getValue());
+    }
+    else if (buff.getName() == "increase bullet range") {
+		player.getGun().setRange(player.getGun().getRange() + buff.getValue());
+    }
 }
 
 void Game::spawnRocks(std::vector<Rock>& rocks, int numRocks, IniFile& ini) {

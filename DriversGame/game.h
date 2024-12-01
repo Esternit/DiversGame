@@ -1,6 +1,4 @@
 #pragma once
-#ifndef GAME_H
-#define GAME_H
 #include <SFML/Graphics.hpp>
 #include "player.h"
 #include <map>
@@ -47,4 +45,3 @@ private:
 	sf::RenderWindow window;
 
 };
-#endif // !GAME_H
