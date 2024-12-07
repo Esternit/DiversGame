@@ -8,7 +8,7 @@ MobController::MobController(float delay, float delayWave) : delay(delay), delay
 }
 
 void MobController::spawnEnemies(std::vector<Enemy>& enemies, std::vector<Spawner>& spawners, sf::View& view, int& currentId) {
-    if (timer.getElapsedTime().asSeconds() > delay && enemies.size() < 150) {
+    if (timer.getElapsedTime().asSeconds() > delay && enemies.size() < 150 && !isBoss) {
         
 		timer.restart();
         if (currentSpawner.posX == -1 && currentSpawner.posY == -1) {
@@ -18,7 +18,17 @@ void MobController::spawnEnemies(std::vector<Enemy>& enemies, std::vector<Spawne
         }
         
         currentId++;
-        enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/firebug.png"), currentSpawner.posX, currentSpawner.posY, FrameAnimation(0, 90, 0, 100), 65, 40, 20, 3, 2, "Firebug", 5, 5, currentId));
+        if (waveCount % 5 == 0) {
+            isBoss = true;
+            enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/Minotaur.png"), currentSpawner.posX, currentSpawner.posY, FrameAnimation(0, 90, 0, 100), 60, 60, 100 + waveCount * increaserPerWave, 10, 20 + waveCount * increaserPerWave, "Minotaur", 100, 100, currentId));
+        }
+        else if (waveCount % 3 == 0) {
+            enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/Firebug.png"), currentSpawner.posX, currentSpawner.posY, FrameAnimation(0, 90, 0, 100), 65, 40, 20 + waveCount * increaserPerWave / 2, 3, 2 + waveCount * increaserPerWave, "Firebug", 5, 5, currentId));
+        }
+        else {
+            enemies.push_back(Enemy(TextureHolder::GetTexture("Assets/Enemy/leafbug.png"), currentSpawner.posX, currentSpawner.posY, FrameAnimation(0, 90, 0, 100), 50, 25, 20 + waveCount * increaserPerWave / 2 , 3, 2 + waveCount * increaserPerWave, "Leafbug", 5, 5, currentId));
+        }
+        
     }
 }
 
@@ -43,6 +53,8 @@ std::vector<Spawner> MobController::calculateSpawners(std::vector<Spawner>& spaw
 
 bool MobController::startWave() {
 	if (timerWave.getElapsedTime().asSeconds() > delayWave * 2) {
+        isBoss = false;
+        waveCount++;
         timerWave.restart();
 		return true;
 	}

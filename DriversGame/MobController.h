@@ -17,4 +17,7 @@ private:
 	Spawner currentSpawner;
 	sf::Clock timerWave;
 	float delayWave;
+	int waveCount = 0;
+	int increaserPerWave = 10;
+	bool isBoss = false;
 };

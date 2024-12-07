@@ -554,6 +554,9 @@ void Game::giveBuff(Player& player, Buff buff) {
     else if (buff.getName() == "increase bullet range") {
 		player.getGun().setRange(player.getGun().getRange() + buff.getValue());
     }
+    else if (buff.getName() == "increase bullet damage") {
+        player.getGun().setAttackGamage(player.getGun().getAttackGamage() + buff.getValue());
+    }
 }
 
 void Game::spawnRocks(std::vector<Rock>& rocks, int numRocks, IniFile& ini) {

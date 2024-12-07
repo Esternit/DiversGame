@@ -34,6 +34,8 @@ public:
 	int getTransferthrough() { return transferthrough; }
 
 	void setTransferthrough(int transferthrough) { this->transferthrough = transferthrough; }
+
+	void setAttackGamage(float attackGamage) { this->attackGamage = attackGamage; }
 private:
 	sf::Sprite gun;
 	float attackGamage;

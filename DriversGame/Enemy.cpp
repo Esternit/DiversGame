@@ -10,12 +10,16 @@ const std::vector<int> animsXAttackMinotaur = { 4, 126, 220, 314, 410, 505, 602,
 const std::vector<int> yPosesFirebug = { 524, 330, 524 };
 const std::vector<int> animsXMoveFirebug = { 35, 162, 290, 420, 545, 673, 802, 930 }; //65 - width
 const std::vector<int> animsXStayFirebug = { 35, 162, 290, 420, 545, 673, 802, 930, 1053, 1180, 1310};
+
+const std::vector<int> yPosesLeafbug = { 145, 145, 145 };
+const std::vector<int> animsXMoveLeafbug = { 5, 70, 135, 200, 265, 325 }; //50 - width, 25-height
+
 Enemy::Enemy(const sf::Texture& textures, float posX, float posY, FrameAnimation anim, float width,  float height, float health, float givesXp, float damage, std::string name, int givesRed, int givesGold, int id) : id(id), animation(anim), width(width), height(height), attack(false), health(health), givesXp(givesXp), damage(damage), name(name), givesRed(givesRed), givesGold(givesGold) {
 
 	enemy.setTexture(textures);
 	enemy.setTextureRect(IntRect(animation.FrameX, animation.FrameY, width, height));
 	if (name == "Minotaur") {
-		enemy.scale(2, 2);
+		enemy.scale(3, 3);
 	}
 	enemy.setPosition(posX, posY);
 
@@ -55,7 +59,6 @@ void Enemy::move(Vector2f direction, std::vector<Enemy>& enemies) {
 		direction /= std::sqrt(direction.x * direction.x + direction.y * direction.y) / maxSpeed;
 	}
 
-	// Двигаем врага
 	enemy.move(direction);
 }
 
@@ -72,6 +75,11 @@ void Enemy::animateMovement(Vector2f direction) {
 		animsX = check ? animsXStayFirebug : animsXMoveFirebug;
 		yPosStay = yPosesFirebug[0];
 		yPosMove = yPosesFirebug[1];
+	}
+	else if (name == "Leafbug") {
+		animsX =animsXMoveLeafbug;
+		yPosStay = yPosesLeafbug[0];
+		yPosMove = yPosesLeafbug[1];
 	}
 
 	if (direction.x == 0 && direction.y == 0) {
@@ -105,6 +113,10 @@ void Enemy::animateAttack(Vector2f direction) {
 	else if (name == "Firebug") {
 		animsX = animsXStayFirebug;
 		yPosAttack = yPosesFirebug[2];
+	}
+	else if (name == "Leafbug") {
+		animsX = animsXMoveLeafbug;
+		yPosAttack = yPosesLeafbug[2];
 	}
 
 	if (animation.FrameY != yPosAttack) {
