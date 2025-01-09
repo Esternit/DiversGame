@@ -1,147 +1,186 @@
-﻿  Enemy.cpp
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(20,74): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(20,74): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(20,74): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(20,74): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(20,74): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(20,67): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(20,67): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(20,67): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(20,67): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(20,67): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,92): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,92): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,92): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,92): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,92): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,84): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,84): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,84): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,84): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,84): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,57): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,57): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,57): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,57): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(98,57): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(102,83): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(102,83): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(102,83): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(102,83): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(102,83): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(102,76): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(102,76): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(102,76): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(102,76): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(102,76): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,92): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,92): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,92): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,92): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,92): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,84): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,84): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,84): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,84): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,84): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,57): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,57): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,57): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,57): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(134,57): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(138,83): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(138,83): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(138,83): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(138,83): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(138,83): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(138,76): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(138,76): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(138,76): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(138,76): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Enemy.cpp(138,76): warning C4244:         ]
-  Gun.cpp
-D:\Dima\C++\S3\DiversGame\DriversGame\Gun.cpp(11,62): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Gun.cpp(11,62): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Gun.cpp(11,62): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Gun.cpp(11,62): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Gun.cpp(11,62): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\Gun.cpp(11,55): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\Gun.cpp(11,55): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\Gun.cpp(11,55): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\Gun.cpp(11,55): warning C4244:             T=int
-D:\Dima\C++\S3\DiversGame\DriversGame\Gun.cpp(11,55): warning C4244:         ]
-  MobController.cpp
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(23,217): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(23,178): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(23,128): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(23,107): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(26,217): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(26,176): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(26,127): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(26,106): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(29,218): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(29,176): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(29,127): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(29,106): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(46,55): warning C4244: аргумент: преобразование "const int" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(46,55): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(46,55): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(46,55): warning C4244:             T=float
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(46,55): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(46,41): warning C4244: аргумент: преобразование "const int" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(46,41): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(46,41): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(46,41): warning C4244:             T=float
-D:\Dima\C++\S3\DiversGame\DriversGame\MobController.cpp(46,41): warning C4244:         ]
+﻿  Bullet.cpp
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(11,65): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(11,65): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(11,65): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(11,65): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(11,65): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(11,58): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(11,58): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(11,58): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(11,58): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(11,58): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(25,88): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(25,88): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(25,88): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(25,88): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(25,88): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(25,81): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(25,81): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(25,81): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(25,81): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Bullet.cpp(25,81): warning C4244:         ]
+  Enemy.cpp
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(20,74): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(20,74): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(20,74): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(20,74): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(20,74): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(20,67): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(20,67): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(20,67): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(20,67): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(20,67): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,92): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,92): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,92): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,92): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,92): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,84): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,84): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,84): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,84): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,84): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,57): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,57): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,57): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,57): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(98,57): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(102,83): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(102,83): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(102,83): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(102,83): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(102,83): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(102,76): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(102,76): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(102,76): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(102,76): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(102,76): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,92): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,92): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,92): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,92): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,92): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,84): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,84): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,84): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,84): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,84): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,57): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,57): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,57): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,57): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(134,57): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(138,83): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(138,83): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(138,83): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(138,83): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(138,83): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(138,76): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(138,76): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(138,76): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(138,76): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Enemy.cpp(138,76): warning C4244:         ]
+  Experience.cpp
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Experience.cpp(7,61): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Experience.cpp(7,61): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Experience.cpp(7,61): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Experience.cpp(7,61): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Experience.cpp(7,61): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Experience.cpp(7,54): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Experience.cpp(7,54): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Experience.cpp(7,54): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Experience.cpp(7,54): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Experience.cpp(7,54): warning C4244:         ]
   game.cpp
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:             T=unsigned int
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:         and
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:             T=float
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:             T=unsigned int
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:         and
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:             T=float
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:             T=unsigned int
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:         and
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:             T=float
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:         with
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:             T=unsigned int
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:         and
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:         [
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:             T=float
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:         ]
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(111,60): warning C4244: аргумент: преобразование "const float" в "int", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(111,82): warning C4244: аргумент: преобразование "const float" в "int", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(111,116): warning C4244: аргумент: преобразование "const float" в "int", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(111,105): warning C4244: аргумент: преобразование "const float" в "int", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(517,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(549,79): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(552,81): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(573,17): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(574,17): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
-D:\Dima\C++\S3\DiversGame\DriversGame\game.cpp(600,23): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:             T=unsigned int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:         and
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:             T=float
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,67): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:             T=unsigned int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:         and
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:             T=float
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(31,52): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:             T=unsigned int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:         and
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:             T=float
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,73): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:             T=unsigned int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:         and
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:             T=float
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(79,53): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(111,60): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(111,82): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(111,116): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(111,105): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(517,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(549,79): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(552,81): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(573,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(574,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\game.cpp(600,23): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  GameMenu.cpp
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\GameMenu.cpp(44,23): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\GameMenu.cpp(44,113): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Gun.cpp
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Gun.cpp(11,62): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Gun.cpp(11,62): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Gun.cpp(11,62): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Gun.cpp(11,62): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Gun.cpp(11,62): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Gun.cpp(11,55): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Gun.cpp(11,55): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Gun.cpp(11,55): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Gun.cpp(11,55): warning C4244:             T=int
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\Gun.cpp(11,55): warning C4244:         ]
+  IniFile.cpp
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\IniFile.cpp(44,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\IniFile.cpp(65,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   main.cpp
+  MobController.cpp
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(23,217): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(23,178): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(23,128): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(23,107): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(26,217): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(26,176): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(26,127): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(26,106): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(29,218): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(29,176): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(29,127): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(29,106): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(46,55): warning C4244: 'argument': conversion from 'const int' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(46,55): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(46,55): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(46,55): warning C4244:             T=float
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(46,55): warning C4244:         ]
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(46,41): warning C4244: 'argument': conversion from 'const int' to 'T', possible loss of data
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(46,41): warning C4244:         with
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(46,41): warning C4244:         [
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(46,41): warning C4244:             T=float
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\MobController.cpp(46,41): warning C4244:         ]
   player.cpp
-D:\Dima\C++\S3\DiversGame\DriversGame\player.cpp(40,42): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-  Создание кода...
-  DriversGame.vcxproj -> D:\Dima\C++\S3\DiversGame\x64\Debug\DriversGame.exe
+C:\Dima\C++\MST\S3\DiversGame\DriversGame\player.cpp(40,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Rock.cpp
+  Generating Code...
+  DriversGame.vcxproj -> C:\Dima\C++\MST\S3\DiversGame\x64\Debug\DriversGame.exe
